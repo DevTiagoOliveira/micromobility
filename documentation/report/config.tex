@@ -1,0 +1,34 @@
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage[a4paper]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[style=ieee]{biblatex}
+\usepackage[affil-it]{authblk}
+\usepackage{titlepic}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{float}
+
+\graphicspath{ {img/} }
+
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+\newcommand{\themonth}{
+    \ifcase \month 
+        \or Janeiro%
+        \or Fevereiro%
+        \or Março%
+        \or Abril%
+        \or Maio%
+        \or Junho%
+        \or Julho%
+        \or Agosto%
+        \or Setembro%
+        \or Outubro%
+        \or Novembro%
+        \or Dezembro%
+    \fi
+}
