@@ -4,9 +4,10 @@
 
 ## Checklist
 
-- [ ] Does your code have comments?
-- [ ] Have you lint your code locally prior to submission?
+- [ ] Did you perform a self-review of your own code?
 - [ ] Did you check that the changes do not generate new warnings?
+- [ ] Have you lint your code locally prior to submission?
+- [ ] Does your code have comments?
 
 ## Remarks
 
