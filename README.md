@@ -2,9 +2,8 @@
 
 ## Repository Structure
 
-- *data*: locally persists the volumes exported by the project containers;
-- *documentation*: includes project documentation - such as the report and the presentation;
-- *source*: incorporates the project source code.
+- *docs*: includes project documentation - such as the report and the presentation;
+- *src*: incorporates the project source code.
 
 ## Working Group
 
