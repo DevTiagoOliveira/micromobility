@@ -1,0 +1,36 @@
+{
+    "name": "shortest-path-service",
+    "version": "1.0.0",
+    "description": "The shortest path microservice.",
+    "main": "app.js",
+    "scripts": {
+        "start": "NODE_ENV=production node app.js",
+        "debug": "npx nodemon app.js",
+        "format": "npx standard --fix"
+    },
+    "author": "Ivo Gomes <a10700@alunos.ipca.pt>",
+    "contributors": [
+        "Rui Ferreira <a19998@alunos.ipca.pt>",
+        "Tiago Oliveira <a21585@alunos.ipca.pt>"
+    ],
+    "repository": "github:ibbgomes/micromobility",
+    "license": "GPLv3",
+    "private": true,
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-jsdoc-swagger": "^1.6.7",
+        "mongoose": "^6.0.14",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "eslint-config-standard": "^16.0.3",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.1.1",
+        "nodemon": "^2.0.15"
+    }
+}

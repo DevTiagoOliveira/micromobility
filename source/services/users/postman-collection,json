@@ -1,0 +1,36 @@
+{
+	"info": {
+		"_postman_id": "b4e14569-f082-44ff-baba-3cb78703d556",
+		"name": "Users Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Monitoring",
+			"item": [
+				{
+					"name": "Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1003/api/v1/monitoring/probe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1003",
+							"path": [
+								"api",
+								"v1",
+								"monitoring",
+								"probe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
