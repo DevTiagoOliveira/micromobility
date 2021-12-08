@@ -109,13 +109,36 @@
 					"response": []
 				},
 				{
+					"name": "Read price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1004/api/v1/vehicles/61b0dab8c347b28d9686c671/price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1004",
+							"path": [
+								"api",
+								"v1",
+								"vehicles",
+								"61b0dab8c347b28d9686c671",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"_id\": \"61b0d9ca3edcf6137dc64838\",\r\n    \"type\": \"Bicycle\",\r\n    \"isAvailable\": true,\r\n    \"charge\": 100,\r\n    \"location\": {\r\n        \"longitude\": 41.5518,\r\n        \"latitude\": -8.4229\r\n    },\r\n    \"__v\": 0\r\n}",
+							"raw": "{\r\n    \"type\": \"Bicycle\",\r\n    \"isAvailable\": true,\r\n    \"charge\": 100,\r\n    \"location\": {\r\n        \"longitude\": 41.5518,\r\n        \"latitude\": -8.4229\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
