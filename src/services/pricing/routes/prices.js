@@ -51,7 +51,7 @@ router.get('/prices/:vehicleType', (req, res) => {
  * GET /api/v1/prices
  * @tags Prices
  * @summary Reads all prices.
- * @returns {Price} 200 - The prices were successfully retrieved.
+ * @returns {array<Price>} 200 - The prices were successfully retrieved.
  * @returns 500 - An internal service error has occurred.
  */
 router.get('/prices', (req, res) => {
