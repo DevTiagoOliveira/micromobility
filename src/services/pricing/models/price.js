@@ -16,7 +16,7 @@ class Price {
 
 class Prices {
   constructor () {
-    this.model = mongoose.type('Price', new Schema({
+    this.model = mongoose.model('Price', new Schema({
       vehicleType: {
         type: String,
         required: true,
