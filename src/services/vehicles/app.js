@@ -5,6 +5,7 @@ const cors = require('cors')
 const doc = require('express-jsdoc-swagger')
 const bodyParser = require('body-parser')
 const config = require('./config')
+const vehiclesRouter = require('./routes/vehicles')
 const monitoringRouter = require('./routes/monitoring')
 const database = require('./services/database')
 
@@ -29,6 +30,7 @@ doc(app)({
   ]
 })
 
+app.use('/api/v1', vehiclesRouter)
 app.use('/api/v1', monitoringRouter)
 
 app.use((req, res, next) => {
