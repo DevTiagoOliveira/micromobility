@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "551319b1-97d2-493a-98ce-c595faee4717",
+		"_postman_id": "82f8734b-6253-4914-b81e-2044b5fba5c6",
 		"name": "Pricing Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,6 +25,138 @@
 								"v1",
 								"monitoring",
 								"probe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prices",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleType\": \"Bicycle\",\r\n    \"price\": 2.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1005/api/v1/prices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"v1",
+								"prices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1005/api/v1/prices/Bicycle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"v1",
+								"prices",
+								"Bicycle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1005/api/v1/prices/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"v1",
+								"prices",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleType\": \"Bicycle\",\r\n    \"price\": 2.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1005/api/v1/prices/Bicycle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"v1",
+								"prices",
+								"Bicycle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1005/api/v1/prices/Bicycle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1005",
+							"path": [
+								"api",
+								"v1",
+								"prices",
+								"Bicycle"
 							]
 						}
 					},
