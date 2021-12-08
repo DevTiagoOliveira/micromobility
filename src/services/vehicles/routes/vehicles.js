@@ -19,7 +19,7 @@ router.post('/vehicles', (req, res) => {
     res.status(400).send()
   } else if (!req.body.location) {
     res.status(400).send()
-  } else  {
+  } else {
     vehicles.create(
       req.body.type,
       req.body.isAvailable,
@@ -37,6 +37,27 @@ router.post('/vehicles', (req, res) => {
   }
 }
 )
+
+/**
+ * GET /api/v1/vehicles/:id/price
+ * @tags Vehicles
+ * @summary Reads the price of the specified vehicle.
+ * @param {string} id.params.required - The vehicle identifier.
+ * @returns {Vehicle} 200 - The vehicle price was successfully retrieved.
+ * @returns 404 - The vehicle price was not found.
+ * @returns 500 - An internal service error has occurred.
+ */
+router.get('/vehicles/:id/price', (req, res) => {
+  vehicles.readPrice(req.params.id, (err, price) => {
+    if (err) {
+      res.status(500).send()
+    } else if (!price) {
+      res.status(404).send()
+    } else {
+      res.status(200).send(price)
+    }
+  })
+})
 
 /**
  * GET /api/v1/vehicles/:id
@@ -104,7 +125,11 @@ router.put('/vehicles/:id', (req, res) => {
       req.body.location,
       (err, vehicle) => {
         if (err) {
-          res.status(500).send()
+          if (err.isAxiosError) {
+            res.status(400).send()
+          } else {
+            res.status(500).send()
+          }
         } else if (!vehicle) {
           res.status(404).send()
         } else {
