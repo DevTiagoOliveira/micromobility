@@ -1,16 +1,22 @@
 const { Vehicle, Vehicles } = require('../models/vehicle')
-
+const pricingService = require('../services/pricing')
 const vehicles = new Vehicles()
 
 function create (type, isAvailable, charge, location, callback) {
-  const vehicle = new Vehicle(type, isAvailable, charge, location)
-
-  vehicles.create(vehicle, (err, vehicle) => {
+  pricingService.readPrice(type, (err) => {
     if (err) {
-      callback(err, null)
-    }
+      callback(null, null)
+    } else {
+      const vehicle = new Vehicle(type, isAvailable, charge, location)
 
-    callback(null, vehicle)
+      vehicles.create(vehicle, (err, vehicle) => {
+        if (err) {
+          callback(err, null)
+        }
+
+        callback(null, vehicle)
+      })
+    }
   })
 }
 
@@ -34,15 +40,39 @@ function readAll (callback) {
   })
 }
 
-function update (id, newType, newIsAvailable, newCharge, newLocation, callback) {
-  const vehicle = new Vehicle(newType, newIsAvailable, newCharge, newLocation)
-
-  vehicles.update(id, vehicle, (err, vehicle) => {
+function readPrice (id, callback) {
+  read(id, (err, vehicle) => {
     if (err) {
       callback(err, null)
     }
 
-    callback(null, vehicle)
+    pricingService.readPrice(vehicle.type, (err, price) => {
+      if (err) {
+        callback(err, null)
+      }
+
+      callback(null, {
+        price: price.price
+      })
+    })
+  })
+}
+
+function update (id, newType, newIsAvailable, newCharge, newLocation, callback) {
+  pricingService.readPrice(newType, (err) => {
+    if (err) {
+      callback(err, null)
+    } else {
+      const vehicle = new Vehicle(newType, newIsAvailable, newCharge, newLocation)
+
+      vehicles.update(id, vehicle, (err, vehicle) => {
+        if (err) {
+          callback(err, null)
+        }
+
+        callback(null, vehicle)
+      })
+    }
   })
 }
 
@@ -59,5 +89,6 @@ function deleteVehicle (id, callback) {
 exports.create = create
 exports.read = read
 exports.readAll = readAll
+exports.readPrice = readPrice
 exports.update = update
 exports.delete = deleteVehicle
