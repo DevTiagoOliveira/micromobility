@@ -141,7 +141,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
