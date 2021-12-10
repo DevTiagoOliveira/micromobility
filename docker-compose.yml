@@ -1,0 +1,31 @@
+version: '3'
+services:
+  database:
+    container_name: database
+    image: mongo:latest
+    volumes:
+      - /usr/local/database
+    expose:
+      - 27017
+    restart: on-failure
+  message-broker:
+    container_name: message-broker
+    image: eclipse-mosquitto:latest
+    command: [ 'mosquitto', '-c', 'mosquitto-no-auth.conf' ]
+    volumes:
+      - /usr/local/message-broker
+    expose:
+      - 1883
+    restart: on-failure
+  simulator:
+    container_name: simulator
+    build: ./src/simulator
+    volumes:
+      - /usr/local/simulator
+    depends_on:
+      - message-broker
+    links:
+      - message-broker
+    ports:
+      - 1880:1880
+    restart: on-failure
