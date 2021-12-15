@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "55d09d2e-56ce-4e58-bc07-63cd5a942bf0",
+		"_postman_id": "a28d5383-1c78-4d69-aa0e-ff9de5ea62bc",
 		"name": "Image Recognition Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,6 +25,43 @@
 								"v1",
 								"monitoring",
 								"probe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prediction",
+			"item": [
+				{
+					"name": "Human",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:1001/api/v1/prediction/human",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1001",
+							"path": [
+								"api",
+								"v1",
+								"prediction",
+								"human"
 							]
 						}
 					},
