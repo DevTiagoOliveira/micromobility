@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.9
 ENV FLASK_ENV = production
 WORKDIR /app
 COPY requirements.txt /app/
