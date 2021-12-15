@@ -1,9 +1,5 @@
 # Micromobility 🚴‍♂️
 
-## Getting started
-
-Run `docker-compose up --build`.
-
 ## Repository Structure
 
 - *docs*: includes project documentation - such as the report and the presentation;
@@ -14,6 +10,10 @@ Run `docker-compose up --build`.
 - Ivo Gomes - <a10700@alunos.ipca.pt>
 - Rui Ferreira - <a19998@alunos.ipca.pt>
 - Tiago Oliveira - <a21585@alunos.ipca.pt>
+
+## Getting started
+
+Run `docker-compose up --build`.
 
 ## Contributing
 
