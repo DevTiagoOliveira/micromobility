@@ -49,6 +49,20 @@ services:
     ports:
       - 1005:1005
     restart: on-failure
+  messaging-service:
+    container_name: messaging-service
+    build: ./src/services/messaging
+    volumes:
+     - /usr/local/messaging-service
+    depends_on:
+      - database
+      - message-broker
+    links:
+      - database
+      - message-broker
+    ports:
+      - 1006:1006
+    restart: on-failure
   users-service:
     container_name: users-service
     build: ./src/services/users
