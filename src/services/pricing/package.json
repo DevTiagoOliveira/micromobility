@@ -4,7 +4,7 @@
     "description": "The pricing microservice.",
     "main": "app.js",
     "scripts": {
-        "start": "NODE_ENV=production node app.js",
+        "start": "node app.js",
         "debug": "npx nodemon app.js",
         "format": "npx standard --fix"
     },
