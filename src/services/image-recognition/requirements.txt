@@ -1,4 +1,5 @@
+numpy
+tensorflow
+Pillow
 Flask
-flask-restplus
-flask-swagger
 flasgger
