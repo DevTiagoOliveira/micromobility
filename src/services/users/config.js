@@ -4,12 +4,12 @@ module.exports = Object.freeze({
     port: 1003
   },
   database: {
-    server: '127.0.0.1',
+    server: 'database',
     port: 27017,
     name: 'users-service'
   },
   imageRecognitionService: {
-    server: 'localhost',
+    server: 'image-recognition-service',
     port: 1001
   }
 })
