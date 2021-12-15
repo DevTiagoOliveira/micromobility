@@ -63,6 +63,18 @@ services:
     ports:
       - 1006:1006
     restart: on-failure
+  shortest-path-service:
+    container_name: shortest-path-service
+    build: ./src/services/shortest-path
+    volumes:
+      - /usr/local/shortest-path-service
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - 1002:1002
+    restart: on-failure
   users-service:
     container_name: users-service
     build: ./src/services/users
@@ -101,11 +113,13 @@ services:
       - users-service
       - vehicles-service
       - messaging-service
+      - shortest-path-service
     links:
       - database
       - users-service
       - vehicles-service
       - messaging-service
+      - shortest-path-service
     ports:
       - 1000:1000
     restart: on-failure
