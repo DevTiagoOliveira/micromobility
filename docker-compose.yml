@@ -29,3 +29,29 @@ services:
     ports:
       - 1880:1880
     restart: on-failure
+  pricing-service:
+    container_name: pricing-service
+    build: ./src/services/pricing
+    volumes:
+      - /usr/local/pricing-service
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - 1005:1005
+    restart: on-failure
+  vehicles-service:
+    container_name: vehicles-service
+    build: ./src/services/vehicles
+    volumes:
+      - /usr/local/vehicles-service
+    depends_on:
+      - database
+      - pricing-service
+    links:
+      - database
+      - pricing-service
+    ports:
+      - 1004:1004
+    restart: on-failure

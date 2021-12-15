@@ -4,12 +4,12 @@ module.exports = Object.freeze({
     port: 1004
   },
   database: {
-    server: '127.0.0.1',
+    server: 'database',
     port: 27017,
     name: 'vehicles-service'
   },
   pricingService: {
-    server: 'localhost',
+    server: 'pricing-service',
     port: 1005
   }
 })
