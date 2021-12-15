@@ -1,5 +1,9 @@
 # Micromobility 🚴‍♂️
 
+## Getting started
+
+Run `docker-compose up --build`.
+
 ## Repository Structure
 
 - *docs*: includes project documentation - such as the report and the presentation;
