@@ -53,7 +53,7 @@ services:
     container_name: messaging-service
     build: ./src/services/messaging
     volumes:
-     - /usr/local/messaging-service
+      - /usr/local/messaging-service
     depends_on:
       - database
       - message-broker
@@ -90,4 +90,22 @@ services:
       - pricing-service
     ports:
       - 1004:1004
+    restart: on-failure
+  micromobility-service:
+    container_name: micromobility-service
+    build: ./src/services/micromobility
+    volumes:
+      - /usr/local/micromobility-service
+    depends_on:
+      - database
+      - users-service
+      - vehicles-service
+      - messaging-service
+    links:
+      - database
+      - users-service
+      - vehicles-service
+      - messaging-service
+    ports:
+      - 1000:1000
     restart: on-failure

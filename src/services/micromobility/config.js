@@ -4,7 +4,7 @@ module.exports = Object.freeze({
     port: 1000
   },
   database: {
-    server: '127.0.0.1',
+    server: 'database',
     port: 27017,
     name: 'micromobility-service'
   },
@@ -13,15 +13,15 @@ module.exports = Object.freeze({
     port: 1002
   },
   usersService: {
-    server: 'localhost',
+    server: 'users-service',
     port: 1003
   },
   vehiclesService: {
-    server: 'localhost',
+    server: 'vehicles-service',
     port: 1004
   },
   messagingService: {
-    server: 'localhost',
+    server: 'messaging-service',
     port: 1006
   }
 })
