@@ -49,6 +49,20 @@ services:
     ports:
       - 1005:1005
     restart: on-failure
+  users-service:
+    container_name: users-service
+    build: ./src/services/users
+    volumes:
+      - /usr/local/users-service
+    depends_on:
+      - database
+      - image-recognition-service
+    links:
+      - database
+      - image-recognition-service
+    ports:
+      - 1003:1003
+    restart: on-failure
   vehicles-service:
     container_name: vehicles-service
     build: ./src/services/vehicles
