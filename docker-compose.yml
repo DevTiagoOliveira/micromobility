@@ -29,6 +29,14 @@ services:
     ports:
       - 1880:1880
     restart: on-failure
+  image-recognition-service:
+    container_name: image-recognition-service
+    build: ./src/services/image-recognition
+    volumes:
+      - /usr/local/image-recognition-service
+    ports:
+      - 1001:1001
+    restart: on-failure
   pricing-service:
     container_name: pricing-service
     build: ./src/services/pricing
