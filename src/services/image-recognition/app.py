@@ -68,9 +68,9 @@ def predict_genre_and_age(filepath):
     age = int(age_model.predict(ar))
     
     if gender == 0:
-        gender = 'Masculine'
+        gender = 'Male'
     elif gender == 1:
-        gender = 'Feminine'
+        gender = 'Female'
         
     return gender, age
 
