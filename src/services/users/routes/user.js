@@ -1,12 +1,29 @@
 const Router = require('express').Router()
 const UserController = require('../controllers/user')
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(request, file, callback){
+    callback(null, './uploads/user-images');
+  },
+  filename:function(request, file, callback){
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{
+    fieldSize: 1024*1024*3,
+  }
+});
 
 /**
  * GET /api/v1/user/
  * @tags User
  * @summary Retrieve all users.
  * @returns 200 - Returned all users successfully.
- * @returns 404 - Not Found.
+ * @returns 404 - An internal service error has occurred.
  */
 Router.get('/', function (req, res) {
   UserController.getAll(req, res)
@@ -17,7 +34,7 @@ Router.get('/', function (req, res) {
  * @tags User
  * @summary Retrieve user by email.
  * @returns 200 - Returned user successfully.
- * @returns 404 - Not Found.
+ * @returns 404 - An internal service error has occurred.
  */
 Router.get('/:email', function (req, res) {
   UserController.getByEmail(req.params.email, res)
@@ -28,9 +45,9 @@ Router.get('/:email', function (req, res) {
  * @tags User
  * @summary Create user.
  * @returns 201 - User created successfully.
- * @returns 404 - Not Found.
+ * @returns 404 - An internal service error has occurred.
  */
-Router.post('/', function (req, res) {
+Router.post('/', upload.single('image'), function (req, res) {
   UserController.create(req, res)
 })
 
@@ -39,7 +56,7 @@ Router.post('/', function (req, res) {
  * @tags User
  * @summary Update user.
  * @returns 200 - User updated successfully.
- * @returns 404 - Not Found.
+ * @returns 404 - An internal service error has occurred.
  */
 Router.patch('/:id', function (req, res) {
   UserController.update(req, res)
@@ -50,7 +67,7 @@ Router.patch('/:id', function (req, res) {
  * @tags User
  * @summary Delete user.
  * @returns 204 - User deleted successfully.
- * @returns 404 - Not Found.
+ * @returns 404 - An internal service error has occurred.
  */
 Router.delete('/:id', function (req, res) {
   UserController.remove(req, res)
