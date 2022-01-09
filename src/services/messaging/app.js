@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios');
 const compression = require('compression')
 const logger = require('morgan')
 const cors = require('cors')
@@ -41,4 +42,19 @@ app.listen(config.http.port, () => {
 })
 
 database.connect()
-messaging.connect()
+messaging.connect(
+  () => {
+    console.log('Received message');
+  },
+  (msgObj) => {
+        if(msgObj.topicType === "start"){
+          axios.post('http://localhost:1000/api/v1/messaging/start', msgObj);
+        } else if (msgObj.topicType === "running"){
+          axios.post('http://localhost:1000/api/v1/messaging/running', msgObj);
+        } else if (msgObj.topicType === "end"){
+          axios.post('http://localhost:1000/api/v1/messaging/start', msgObj);
+        } else {
+          console.log("Unrecognized topic type" + msgObj.topicType);
+        }
+  }
+);

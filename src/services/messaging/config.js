@@ -10,6 +10,7 @@ module.exports = Object.freeze({
   },
   mqtt: {
     server: 'localhost',
-    port: 1883
+    port: 1883,
+    topic: "rental"
   }
 })
