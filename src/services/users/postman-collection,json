@@ -31,6 +31,136 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "User creation",
+			"request": {
+				"url": "http://localhost:1003/api/v1/user/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "",
+							"type": "file",
+							"src": "AutoParAlg.png"
+						},
+						{
+							"key": "userType",
+							"value": "Admin",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "td@ipca.comdas",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user1ads",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user1passasd",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"url": "http://localhost:1003/api/v1/user/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1003/api/v1/user/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1003",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						":id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1003/api/v1/user/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1003",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						":id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email",
+			"request": {
+				"url": "http://localhost:1003/api/v1/user/td@ipca.comdas",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
 		}
+
 	]
 }
