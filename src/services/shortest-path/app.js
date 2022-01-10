@@ -6,6 +6,7 @@ const doc = require('express-jsdoc-swagger')
 const bodyParser = require('body-parser')
 const config = require('./config')
 const monitoringRouter = require('./routes/monitoring')
+const shortestPathRouter = require('./routes/shortestPath.js')
 const database = require('./services/database')
 
 const app = express()
@@ -30,6 +31,7 @@ doc(app)({
 })
 
 app.use('/api/v1', monitoringRouter)
+app.use('/api/v1/shortest-path', shortestPathRouter)
 
 app.use((req, res, next) => {
   res.status(404).send()

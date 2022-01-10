@@ -31,6 +31,140 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Nearest Vertex",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "authKey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=ArqSistemas:nearest_vertex&outputFormat=application/json&viewparams=x:41.5673;y:-8.7486",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geoserver",
+						"arqsistemas",
+						"wfs"
+					],
+					"query": [
+						{
+							"key": "service",
+							"value": "WFS"
+						},
+						{
+							"key": "version",
+							"value": "1.0.0"
+						},
+						{
+							"key": "request",
+							"value": "GetFeature"
+						},
+						{
+							"key": "typeName",
+							"value": "ArqSistemas:nearest_vertex"
+						},
+						{
+							"key": "outputFormat",
+							"value": "application/json"
+						},
+						{
+							"key": "viewparams",
+							"value": "x:41.5673;y:-8.7486"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shortest Path",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "authKey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=ArqSistemas:shortest_path&outputFormat=application/json&viewparams=source:1;target:4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geoserver",
+						"arqsistemas",
+						"wfs"
+					],
+					"query": [
+						{
+							"key": "service",
+							"value": "WFS"
+						},
+						{
+							"key": "version",
+							"value": "1.0.0"
+						},
+						{
+							"key": "request",
+							"value": "GetFeature"
+						},
+						{
+							"key": "typeName",
+							"value": "ArqSistemas:shortest_path"
+						},
+						{
+							"key": "outputFormat",
+							"value": "application/json"
+						},
+						{
+							"key": "viewparams",
+							"value": "source:1;target:4"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
