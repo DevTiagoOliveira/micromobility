@@ -11,6 +11,10 @@
 - Rui Ferreira - <a19998@alunos.ipca.pt>
 - Tiago Oliveira - <a21585@alunos.ipca.pt>
 
+## Getting started
+
+Run `docker-compose up --build`.
+
 ## Contributing
 
 Check the repository [pull request template](pull_request_template.md).
