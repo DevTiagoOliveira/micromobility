@@ -1,0 +1,125 @@
+version: '3'
+services:
+  database:
+    container_name: database
+    image: mongo:latest
+    volumes:
+      - /usr/local/database
+    expose:
+      - 27017
+    restart: on-failure
+  message-broker:
+    container_name: message-broker
+    image: eclipse-mosquitto:latest
+    command: [ 'mosquitto', '-c', 'mosquitto-no-auth.conf' ]
+    volumes:
+      - /usr/local/message-broker
+    expose:
+      - 1883
+    restart: on-failure
+  simulator:
+    container_name: simulator
+    build: ./src/simulator
+    volumes:
+      - /usr/local/simulator
+    depends_on:
+      - message-broker
+    links:
+      - message-broker
+    ports:
+      - 1880:1880
+    restart: on-failure
+  image-recognition-service:
+    container_name: image-recognition-service
+    build: ./src/services/image-recognition
+    volumes:
+      - /usr/local/image-recognition-service
+    ports:
+      - 1001:1001
+    restart: on-failure
+  pricing-service:
+    container_name: pricing-service
+    build: ./src/services/pricing
+    volumes:
+      - /usr/local/pricing-service
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - 1005:1005
+    restart: on-failure
+  messaging-service:
+    container_name: messaging-service
+    build: ./src/services/messaging
+    volumes:
+      - /usr/local/messaging-service
+    depends_on:
+      - database
+      - message-broker
+    links:
+      - database
+      - message-broker
+    ports:
+      - 1006:1006
+    restart: on-failure
+  shortest-path-service:
+    container_name: shortest-path-service
+    build: ./src/services/shortest-path
+    volumes:
+      - /usr/local/shortest-path-service
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - 1002:1002
+    restart: on-failure
+  users-service:
+    container_name: users-service
+    build: ./src/services/users
+    volumes:
+      - /usr/local/users-service
+    depends_on:
+      - database
+      - image-recognition-service
+    links:
+      - database
+      - image-recognition-service
+    ports:
+      - 1003:1003
+    restart: on-failure
+  vehicles-service:
+    container_name: vehicles-service
+    build: ./src/services/vehicles
+    volumes:
+      - /usr/local/vehicles-service
+    depends_on:
+      - database
+      - pricing-service
+    links:
+      - database
+      - pricing-service
+    ports:
+      - 1004:1004
+    restart: on-failure
+  micromobility-service:
+    container_name: micromobility-service
+    build: ./src/services/micromobility
+    volumes:
+      - /usr/local/micromobility-service
+    depends_on:
+      - database
+      - users-service
+      - vehicles-service
+      - messaging-service
+      - shortest-path-service
+    links:
+      - database
+      - users-service
+      - vehicles-service
+      - messaging-service
+      - shortest-path-service
+    ports:
+      - 1000:1000
+    restart: on-failure
