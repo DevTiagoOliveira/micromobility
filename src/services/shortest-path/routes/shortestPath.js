@@ -10,7 +10,7 @@ const PathController = require('../controllers/shortestPath')
  * @returns 404 - An internal service error has occurred.
  */
 router.get('/', (req, res) => {
-    PathController.getShortestPath(req,res);
+  PathController.getShortestPath(req, res)
 })
 
 module.exports = router

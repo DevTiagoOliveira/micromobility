@@ -12,12 +12,12 @@ function connect (topicMessage, messageCallback) {
 
   client.on('connect', () => {
     console.log('Connection to the message broker has been established')
-    client.subscribe(config.mqtt.topic + "/#");
+    client.subscribe(config.mqtt.topic + '/#')
     client.on('message', (topic, message) => {
       console.log(topicMessage + ` for topic ${topic}`)
-      const obj = JSON.parse(message.toString());
-      obj.topicType = topic.replace(config.mqtt.topic + "/", "");
-      messageCallback(obj);
+      const obj = JSON.parse(message.toString())
+      obj.topicType = topic.replace(config.mqtt.topic + '/', '')
+      messageCallback(obj)
     })
   })
   client.on('error', (err) => {

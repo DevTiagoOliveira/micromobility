@@ -1,22 +1,22 @@
 const Router = require('express').Router()
 const UserController = require('../controllers/user')
-const multer = require('multer');
+const multer = require('multer')
 
 const storage = multer.diskStorage({
-  destination: function(request, file, callback){
-    callback(null, './uploads/user-images');
+  destination: function (request, file, callback) {
+    callback(null, './uploads/user-images')
   },
-  filename:function(request, file, callback){
-    callback(null, Date.now() + file.originalname);
+  filename: function (request, file, callback) {
+    callback(null, Date.now() + file.originalname)
   }
-});
+})
 
 const upload = multer({
   storage: storage,
-  limits:{
-    fieldSize: 1024*1024*3,
+  limits: {
+    fieldSize: 1024 * 1024 * 3
   }
-});
+})
 
 /**
  * GET /api/v1/user/
