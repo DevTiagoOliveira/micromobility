@@ -1,6 +1,6 @@
 const UserModel = require('../models/user')
-const FormData = require('form-data');
-const fs = require("fs");
+const FormData = require('form-data')
+const fs = require('fs')
 const axios = require('axios')
 
 /* Get All Users */
@@ -33,26 +33,26 @@ const getByEmail = (email, res) => {
 
 /* Create User */
 const create = (req, res) => {
-  let formData = new FormData()
-  let stream   = fs.createReadStream('./uploads/user-images/' + req.file.filename)
+  const formData = new FormData()
+  const stream = fs.createReadStream('./uploads/user-images/' + req.file.filename)
   formData.append('image', stream)
-  let formHeaders = formData.getHeaders()
+  const formHeaders = formData.getHeaders()
   axios.post('http://localhost:1001/api/v1/prediction/human', formData, {
-        headers: {
-            ...formHeaders,
-        },
-    }).then((response) => {
-      UserModel.create(req, response.data)
-        .then((user) => {
-          console.log(user.data)
+    headers: {
+      ...formHeaders
+    }
+  }).then((response) => {
+    UserModel.create(req, response.data)
+      .then((user) => {
+        console.log(user.data)
         res.status(201).send(user.data)
       }).catch((err) => {
         console.log('Error:' + err)
         res.status(404)
         res.send(err)
       })
-    }).catch(error => {
-        console.log(error)
+  }).catch(error => {
+    console.log(error)
   })
 }
 

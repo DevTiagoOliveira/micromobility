@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Model = mongoose.model
-const fs = require('fs');
+const fs = require('fs')
 
 /**
  * Defines a User.
@@ -19,7 +19,7 @@ const UserSchema = new Schema(
   {
     image: { type: String, required: false },
     genre: { type: String, required: true },
-    age: { type: Number, required: true, min: [16, 'User must be over 16 years old'], },
+    age: { type: Number, required: true, min: [16, 'User must be over 16 years old'] },
     userType: { type: String, required: true },
     email: { type: String, required: true },
     username: { type: String, required: true },
@@ -72,10 +72,10 @@ function UserDB (UserModel) {
 
   function create (req, imageRec) {
     const newUser = UserModel(req.body)
-    newUser.image = req.file.filename;
-    newUser.age = imageRec.age;
-    newUser.genre = imageRec.genre;
-    console.log(newUser);
+    newUser.image = req.file.filename
+    newUser.age = imageRec.age
+    newUser.genre = imageRec.genre
+    console.log(newUser)
     return save(newUser)
   }
 
