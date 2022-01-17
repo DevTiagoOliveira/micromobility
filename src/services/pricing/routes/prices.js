@@ -10,7 +10,7 @@ const router = express.Router()
  * @returns 400 - The price is invalid.
  * @returns 500 - An internal service error has occurred.
  */
- router.post('/prices', (req, res) => {
+router.post('/prices', (req, res) => {
   if (!req.body.vehicleType) {
     res.status(400).send()
   } else if (!req.body.price) {
