@@ -33,79 +33,158 @@
 			]
 		},
 		{
-			"name": "Register User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "image",
-							"type": "file",
-							"src": "/C:/Users/tiagoo/Desktop/man.jpg"
-						},
-						{
-							"key": "userType",
-							"value": "Admin",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "td@ipca.comdas",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "user1ads",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "user1passasd",
-							"type": "text"
-						}
-					]
+			"name": "Pricing Management",
+			"item": [
+				{
+					"name": "Create Pricing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:1000/api/v1/micromobility/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1000",
-					"path": [
-						"api",
-						"v1",
-						"micromobility",
-						"register"
-					]
+				{
+					"name": "Delete Pricing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pricing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Pricing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get User Details",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:1000/api/v1/micromobility/getUserDetails/td@ipca.comdas",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1000",
-					"path": [
-						"api",
-						"v1",
-						"micromobility",
-						"getUserDetails",
-						"td@ipca.comdas"
-					]
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/tiagoo/Desktop/man.jpg"
+								},
+								{
+									"key": "userType",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "td@ipca.comdas",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user1ads",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "user1passasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/getUserDetails/td@ipca.comdas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"getUserDetails",
+								"td@ipca.comdas"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Vehicle Management",
+			"item": [
+				{
+					"name": "Delete Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

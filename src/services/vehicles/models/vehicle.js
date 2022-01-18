@@ -23,7 +23,8 @@ class Vehicles {
     this.model = mongoose.model('Vehicle', new Schema({
       type: {
         type: String,
-        required: true
+        required: true,
+        enum: ['Scooter', 'Bicycle']
       },
       isAvailable: {
         type: Boolean,
