@@ -37,7 +37,7 @@ const create = (req, res) => {
   const stream = fs.createReadStream('./uploads/user-images/' + req.file.filename)
   formData.append('image', stream)
   const formHeaders = formData.getHeaders()
-  axios.post('http://localhost:1001/api/v1/prediction/human', formData, {
+  axios.post('http://image-recognition-service:1001/api/v1/prediction/human', formData, {
     headers: {
       ...formHeaders
     }

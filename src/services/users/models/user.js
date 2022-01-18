@@ -20,7 +20,7 @@ const UserSchema = new Schema(
     image: { type: String, required: false },
     genre: { type: String, required: true },
     age: { type: Number, required: true, min: [16, 'User must be over 16 years old'] },
-    userType: { type: String, required: true },
+    userType: { type: String, required: true , enum: ['Admin', 'Client']},
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
