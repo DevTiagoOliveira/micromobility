@@ -24,12 +24,14 @@ services:
       - /usr/local/simulator
     depends_on:
       - message-broker
+      - micromobility-service
     links:
       - message-broker
+      - micromobility-service
     ports:
       - 1880:1880
     restart: on-failure
-geoser  postgis:
+  postgis:
     image: pgrouting/pgrouting
     container_name: postgis
     environment:
