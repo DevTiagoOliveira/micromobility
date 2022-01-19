@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1478bf92-4774-4d89-bd34-257004efb425",
+		"_postman_id": "c5febe35-a8ac-42c6-9e96-fb494e7093a2",
 		"name": "Shortest Path Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -33,32 +33,12 @@
 			]
 		},
 		{
-			"name": "Nearest Vertex",
+			"name": "Get Nearest Vertice",
 			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "in",
-							"value": "query",
-							"type": "string"
-						},
-						{
-							"key": "value",
-							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authKey",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=ArqSistemas:nearest_vertex&outputFormat=application/json&viewparams=x:41.5673;y:-8.7486",
+					"raw": "http://localhost:8080/geoserver/wfs?authkey=fb9f8cea-7e7d-4bff-84c1-f4185e293e66&service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:nearest_vertex&outputformat=application/json&viewparams=x:-8.3544312;y:42.5111985",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -66,10 +46,13 @@
 					"port": "8080",
 					"path": [
 						"geoserver",
-						"arqsistemas",
 						"wfs"
 					],
 					"query": [
+						{
+							"key": "authkey",
+							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66"
+						},
 						{
 							"key": "service",
 							"value": "WFS"
@@ -84,15 +67,15 @@
 						},
 						{
 							"key": "typeName",
-							"value": "ArqSistemas:nearest_vertex"
+							"value": "arqsistemas:nearest_vertex"
 						},
 						{
-							"key": "outputFormat",
+							"key": "outputformat",
 							"value": "application/json"
 						},
 						{
 							"key": "viewparams",
-							"value": "x:41.5673;y:-8.7486"
+							"value": "x:-8.3544312;y:42.5111985"
 						}
 					]
 				}
@@ -100,32 +83,12 @@
 			"response": []
 		},
 		{
-			"name": "Shortest Path",
+			"name": "Get Shortest Path Between 2 Vertices",
 			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "in",
-							"value": "query",
-							"type": "string"
-						},
-						{
-							"key": "value",
-							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authKey",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=ArqSistemas:shortest_path&outputFormat=application/json&viewparams=source:1;target:4",
+					"raw": "http://localhost:8080/geoserver/wfs?authkey=fb9f8cea-7e7d-4bff-84c1-f4185e293e66&service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:shortest_path&outputformat=application/json&viewparams=source:2978;target:4119;",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -133,10 +96,13 @@
 					"port": "8080",
 					"path": [
 						"geoserver",
-						"arqsistemas",
 						"wfs"
 					],
 					"query": [
+						{
+							"key": "authkey",
+							"value": "fb9f8cea-7e7d-4bff-84c1-f4185e293e66"
+						},
 						{
 							"key": "service",
 							"value": "WFS"
@@ -151,15 +117,58 @@
 						},
 						{
 							"key": "typeName",
-							"value": "ArqSistemas:shortest_path"
+							"value": "arqsistemas:shortest_path"
 						},
 						{
-							"key": "outputFormat",
+							"key": "outputformat",
 							"value": "application/json"
 						},
 						{
 							"key": "viewparams",
-							"value": "source:1;target:4"
+							"value": "source:2978;target:4119;"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shortest Path Between 2 Points",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1002/api/v1/shortest-path?origin=x:-8.3544312;y:42.5111985&destination=x:-8.3544312;y:42.5111985",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1002",
+					"path": [
+						"api",
+						"v1",
+						"shortest-path"
+					],
+					"query": [
+						{
+							"key": "origin",
+							"value": "x:-8.3544312;y:42.5111985"
+						},
+						{
+							"key": "destination",
+							"value": "x:-8.3544312;y:42.5111985"
 						}
 					]
 				}
