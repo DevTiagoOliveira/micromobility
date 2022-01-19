@@ -296,7 +296,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/",
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -370,6 +370,30 @@
 								"management",
 								"vehicle",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle Price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/61e7fb9fa9aa9d76a66bea8a/price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"vehicle",
+								"61e7fb9fa9aa9d76a66bea8a",
+								"price"
 							]
 						}
 					},
