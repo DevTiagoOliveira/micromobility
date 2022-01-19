@@ -25,6 +25,18 @@ router.get('/getUserDetails/:email', function (req, res) {
 })
 
 /**
+ * PATCH /api/v1/micromobility/updateUserBalance/:email
+ * @tags User
+ * @summary Update user balance.
+ * @returns 200 - User updated successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+router.patch('/updateUserBalance/:email', function (req, res) {
+  // Requires authentication and email should be retrieved from session
+  res.redirect(308, 'http://localhost:1003/api/v1/user/balance/' + req.params.email);
+})
+
+/**
  * POST /api/v1/micromobility/management/vehicle/
  * @tags Vehicles
  * @summary Creates the specified vehicle (vehicle type must exist in pricing service).
