@@ -41,6 +41,18 @@ Router.get('/:email', function (req, res) {
 })
 
 /**
+ * PATCH /api/v1/user/balance/:email
+ * @tags User
+ * @summary Update user balance.
+ * @returns 200 - User updated successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.patch('/balance/:email', function (req, res) {
+  console.log("O valor do balance é: " + req.body.balance)
+  UserController.updateBalance(req.params.email, req.body.balance, res)
+})
+
+/**
  * POST /api/v1/user/
  * @tags User
  * @summary Create user.

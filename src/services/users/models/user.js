@@ -34,6 +34,7 @@ function UserDB (UserModel) {
   const service = {
     getById,
     getByEmail,
+    updateBalance,
     getAll,
     create,
     update,
@@ -53,6 +54,16 @@ function UserDB (UserModel) {
   function getByEmail (email) {
     return new Promise(function (resolve, reject) {
       UserModel.find({ email: email }, function (err, user) {
+        if (err) reject(err)
+
+        resolve(user)
+      })
+    })
+  }
+
+  function updateBalance (userDAO) {
+    return new Promise(function (resolve, reject) {
+      UserModel.findOneAndUpdate({ email: userDAO.email }, { balance: userDAO.balance }, function (err, user) {
         if (err) reject(err)
 
         resolve(user)
