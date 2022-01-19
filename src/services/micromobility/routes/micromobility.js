@@ -37,6 +37,20 @@ router.patch('/updateUserBalance/:email', function (req, res) {
 })
 
 /**
+ * GET /api/v1/micromobility/vehicle/:vehId/price
+ * @tags Vehicles
+ * @summary Reads the price of the specified vehicle.
+ * @param {string} req.params.vehId - The vehicle identifier.
+ * @returns {Vehicle} 200 - The vehicle price was successfully retrieved.
+ * @returns 404 - The vehicle price was not found.
+ * @returns 500 - An internal service error has occurred.
+ */
+router.get('/vehicle/:specVehId/price', function (req, res) {
+  // Requires authentication
+  res.redirect('http://localhost:1004/api/v1/vehicles/' + req.params.specVehId + '/price');
+})
+
+/**
  * POST /api/v1/micromobility/management/vehicle/
  * @tags Vehicles
  * @summary Creates the specified vehicle (vehicle type must exist in pricing service).
@@ -79,13 +93,13 @@ router.delete('/management/vehicle/:vehId', function (req, res) {
 })
 
 /**
- * GET /api/v1/micromobility/management/vehicle/
+ * GET /api/v1/micromobility/vehicle/
  * @tags Vehicles
  * @summary Reads all vehicles.
  * @returns {array<Vehicle>} 200 - The vehicles were successfully retrieved.
  * @returns 500 - An internal service error has occurred.
  */
-router.get('/management/vehicle/', function (req, res) {
+router.get('/vehicle/', function (req, res) {
   // Requires authentication and email should be retrieved from session
   res.redirect('http://localhost:1004/api/v1/vehicles');
 })
