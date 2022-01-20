@@ -1,6 +1,6 @@
 const UserModel = require('../models/user')
-const FormData = require('form-data');
-const fs = require("fs");
+const FormData = require('form-data')
+const fs = require('fs')
 const axios = require('axios')
 
 /* Get All Users */
@@ -31,28 +31,50 @@ const getByEmail = (email, res) => {
     })
 }
 
+/* Update User Balance */
+const updateBalance = (email, balance, res) => {
+  UserModel.getByEmail(email)
+    .then((user) => {
+      user[0].balance = user[0].balance + balance
+      UserModel.updateBalance(user[0])
+        .then((user) => {
+          res.status(200).send("Balance Updated for user " + email)
+        })
+        .catch((err) => {
+          console.log('Error:' + err)
+          res.status(404)
+          res.send('NOT FOUND')
+        })
+    })
+    .catch((err) => {
+      console.log('Error:' + err)
+      res.status(404)
+      res.send('NOT FOUND')
+    })
+}
+
 /* Create User */
 const create = (req, res) => {
-  let formData = new FormData()
-  let stream   = fs.createReadStream('./uploads/user-images/' + req.file.filename)
+  const formData = new FormData()
+  const stream = fs.createReadStream('./uploads/user-images/' + req.file.filename)
   formData.append('image', stream)
-  let formHeaders = formData.getHeaders()
-  axios.post('http://localhost:1001/api/v1/prediction/human', formData, {
-        headers: {
-            ...formHeaders,
-        },
-    }).then((response) => {
-      UserModel.create(req, response.data)
-        .then((user) => {
-          console.log(user.data)
+  const formHeaders = formData.getHeaders()
+  axios.post('http://image-recognition-service:1001/api/v1/prediction/human', formData, {
+    headers: {
+      ...formHeaders
+    }
+  }).then((response) => {
+    UserModel.create(req, response.data)
+      .then((user) => {
+        console.log(user.data)
         res.status(201).send(user.data)
       }).catch((err) => {
         console.log('Error:' + err)
         res.status(404)
         res.send(err)
       })
-    }).catch(error => {
-        console.log(error)
+  }).catch(error => {
+    console.log(error)
   })
 }
 
@@ -88,6 +110,7 @@ const remove = (req, res) => {
 module.exports = {
   getAll,
   getByEmail,
+  updateBalance,
   create,
   update,
   remove

@@ -1,60 +1,71 @@
-var geoserverUrl = "http://localhost:8080/geoserver/wfs?authkey="+geoServer.authkey+"&";
+
+const axios = require('axios')
+
+const geoserverUrl = 'http://geoserver:8080/geoserver/wfs?authkey=' + "fb9f8cea-7e7d-4bff-84c1-f4185e293e66" + '&'
 
 /* function to obtain vertice near to selected point */
-function getVertice(pontoSelecionado) {
-	var url = `${geoserverUrl}service=WFS&version=1.0.0&request=GetFeature&typeName=ArqSistemas:nearest_vertex&outputformat=application/json&viewparams=x:${
-		pontoSelecionado.lng
-	};y:${pontoSelecionado.lat};`;
-	
-	$.ajax({
-		url: url,
-		async: false,
-		success: function(data) {
-			carregaVertice(
-				data
-			);
-		}
-	});
-}
-
-/* return vertice id from geoserver */
-function carregaVertice(response) {
-	var features = response.features;
-	return features[0].properties.id;
+function getVertice (pontoSelecionado) {
+  return `${geoserverUrl}service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:nearest_vertex&outputformat=application/json&viewparams=x:${pontoSelecionado.x};y:${pontoSelecionado.y};`
+  
 }
 
 /* function to obtain shortest path */
-function getRota(origin, destination) {
-	var url = `${geoserverUrl}service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:shortest_path&outputformat=application/json&viewparams=source:${origem};target:${destino};`;
+function getRota (origin, destination) {
+  return `${geoserverUrl}service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:shortest_path&outputformat=application/json&viewparams=source:${origin};target:${destination};`
 
-	$.getJSON(url, function(data) {
-		//calcular a distancia caminho mais curto
-		i=0;
-		distancia=0;
-		while (i < data.features.length) {
-			distancia += data.features[i].properties.distance 
-			i++;
-		  }
-		alert('Distancia:'+distancia.toFixed(2)+' km');
-	});
+}
+
+/* function to calculate distance */
+function getDistance (data) {
+  var data = response3.data
+  var i = 0
+  var distancia = 0
+  while (i < data.features.length) {
+    distancia += data.features[i].properties.distance
+    i++
+  }
+  return distancia  
 }
 
 /* Get Shortest Path */
 const getShortestPath = (req, res) => {
-    const origin = {};
-    origin.lng = req.body.originLng;
-    origin.lat = req.body.originLat;
-    const destination = {};
-    destination.lng = req.body.originLng;
-    destination.lat = req.body.originLat;
+  const origin = {}
+  origin.x = req.query.xorigin
+  origin.y = req.query.yorigin
+  const destination = {}
+  destination.x = req.query.xdestination
+  destination.y = req.query.ydestination
 
-    const originVert = getVertice(origin);
-    const destinationVert = getVertice(destination);
+  var originVertUrl = getVertice(origin)
+  var destinationVertUrl = getVertice(destination)
 
-    getRota(originVert, destinationVert);
+  axios.get(originVertUrl)
+    .then((response1) => {
+    const originalVert = response1.data.features[0].properties.id
+    axios.get(destinationVertUrl)
+      .then((response2) => {
+        const destinationVert = response2.data.features[0].properties.id
+        const rotaUrl = getRota(originalVert, destinationVert)
+        axios.get(rotaUrl)
+          .then((response3) => {
+            try {
+              res.status(200)
+              res.send(response3.data);
+            } catch (err) {
+              console.error(err);
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+    }).catch(error => {
+      console.log(error)
+    })
+  }).catch(error => {
+    console.log(error)
+  })
 }
 
 /* Export */
 module.exports = {
-    getShortestPath
+  getShortestPath
 }

@@ -20,7 +20,8 @@ class Prices {
       vehicleType: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        enum: ['Scooter', 'Bicycle']
       },
       price: {
         type: Number,

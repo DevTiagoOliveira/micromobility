@@ -24,10 +24,47 @@ services:
       - /usr/local/simulator
     depends_on:
       - message-broker
+      - micromobility-service
     links:
       - message-broker
+      - micromobility-service
     ports:
       - 1880:1880
+    restart: on-failure
+  postgis:
+    image: pgrouting/pgrouting
+    container_name: postgis
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./src/services/shortest-path/pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    restart: on-failure
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ola.pt
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgis
+    links:
+      - postgis
+    ports:
+      - '5050:80'
+    restart: on-failure
+  geoserver:
+    image: geonode/geoserver
+    container_name: geoserver
+    volumes:
+      - ./src/services/shortest-path/geoserver_data/data:/geoserver_data/data
+    depends_on:
+      - postgis
+    links:
+      - postgis
+    ports:
+      - '8080:8080'
     restart: on-failure
   image-recognition-service:
     container_name: image-recognition-service
@@ -70,8 +107,10 @@ services:
       - /usr/local/shortest-path-service
     depends_on:
       - database
+      - geoserver
     links:
       - database
+      - geoserver
     ports:
       - 1002:1002
     restart: on-failure

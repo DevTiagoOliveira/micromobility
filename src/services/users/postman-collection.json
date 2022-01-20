@@ -160,7 +160,38 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "Add Balance",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"balance\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1003/api/v1/user/balance/td@ipca.comdas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1003",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"balance",
+						"td@ipca.comdas"
+					]
+				}
+			},
+			"response": []
 		}
-
 	]
 }
