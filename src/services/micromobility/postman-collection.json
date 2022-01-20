@@ -306,7 +306,6 @@
 								"api",
 								"v1",
 								"micromobility",
-								"management",
 								"vehicle",
 								""
 							]
@@ -394,6 +393,168 @@
 								"vehicle",
 								"61e7fb9fa9aa9d76a66bea8a",
 								"price"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trip Management",
+			"item": [
+				{
+					"name": "Get All Trips",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Client Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/client/test@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"client",
+								"test@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Vehicle Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/veh/123123213213",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"veh",
+								"123123213213"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/vehtype/Scooter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"vehtype",
+								"Scooter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trip",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"dadadada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Trip",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"dadadada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"vehicleType\":\"Scooter\",\r\n   \"vehicleId\":\"dadadaadadad\",\r\n   \"clientEmail\":\"teste@teste.com\",\r\n   \"cost\":100,\r\n   \"tripDetails\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   },\r\n   \"transactions\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips"
 							]
 						}
 					},
