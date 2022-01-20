@@ -397,6 +397,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Active Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/activeVehicle/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"activeVehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles With Charge Lower Than X",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility//management/vehicle/bat/50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"",
+								"management",
+								"vehicle",
+								"bat",
+								"50"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
