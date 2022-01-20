@@ -1,5 +1,83 @@
 const express = require('express')
-const router = express.Router()
+const Router = express.Router()
+const TripController = require('../controllers/trip')
+
+/**
+ * GET /api/v1/micromobility/trips
+ * @tags Trip
+ * @summary Retrieve all trips.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips', function (req, res) {
+  TripController.getAll(req, res)
+})
+
+/**
+ * GET /api/v1/micromobility/trips/client/:email
+ * @tags Trip
+ * @summary Retrieve trips by user email.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips/client/:email', function (req, res) {
+  TripController.getAllByEmail(req.params.email, res)
+})
+
+/**
+ * GET /api/v1/micromobility/trips/veh/:id
+ * @tags Trip
+ * @summary Retrieve trips by vehicle id.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips/veh/:id', function (req, res) {
+  TripController.getAllByVehId(req.params.id, res)
+})
+
+/**
+ * GET /api/v1/micromobility/trips/vehtype/:id
+ * @tags Trip
+ * @summary Retrieve trips by vehicle id.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips/vehtype/:type', function (req, res) {
+  TripController.getAllByVehType(req.params.type, res)
+})
+
+/**
+ * POST /api/v1/micromobility/trips
+ * @tags Trip
+ * @summary Create trip.
+ * @returns 201 - Trip created successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.post('/trips', function (req, res) {
+  TripController.create(req, res)
+})
+
+/**
+ * PATCH /api/v1/micromobility/trips/:id
+ * @tags Trip
+ * @summary Update Trip.
+ * @returns 200 - Trip updated successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.patch('/trips/:id', function (req, res) {
+  TripController.update(req, res)
+})
+
+/**
+ * DELETE /api/v1/micromobility/trips/:id
+ * @tags Trip
+ * @summary Delete Trip.
+ * @returns 204 - Trip deleted successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.delete('/trips/:id', function (req, res) {
+  TripController.remove(req, res)
+})
 
 /**
  * POST /api/v1/micromobility/register
@@ -8,7 +86,7 @@ const router = express.Router()
  * @returns 201 - User created successfully.
  * @returns 404 - An internal service error has occurred.
  */
-router.post('/register', function (req, res) {
+Router.post('/register', function (req, res) {
     res.redirect(308, 'http://localhost:1003/api/v1/user/');
 })
 
@@ -19,7 +97,7 @@ router.post('/register', function (req, res) {
  * @returns 200 - Returned user successfully.
  * @returns 404 - An internal service error has occurred.
  */
-router.get('/getUserDetails/:email', function (req, res) {
+Router.get('/getUserDetails/:email', function (req, res) {
   // Requires authentication and email should be retrieved from session
   res.redirect('http://localhost:1003/api/v1/user/' + req.params.email);
 })
@@ -31,7 +109,7 @@ router.get('/getUserDetails/:email', function (req, res) {
  * @returns 200 - User updated successfully.
  * @returns 404 - An internal service error has occurred.
  */
-router.patch('/updateUserBalance/:email', function (req, res) {
+Router.patch('/updateUserBalance/:email', function (req, res) {
   // Requires authentication and email should be retrieved from session
   res.redirect(308, 'http://localhost:1003/api/v1/user/balance/' + req.params.email);
 })
@@ -45,7 +123,7 @@ router.patch('/updateUserBalance/:email', function (req, res) {
  * @returns 404 - The vehicle price was not found.
  * @returns 500 - An internal service error has occurred.
  */
-router.get('/vehicle/:specVehId/price', function (req, res) {
+Router.get('/vehicle/:specVehId/price', function (req, res) {
   // Requires authentication
   res.redirect('http://localhost:1004/api/v1/vehicles/' + req.params.specVehId + '/price');
 })
@@ -58,7 +136,7 @@ router.get('/vehicle/:specVehId/price', function (req, res) {
  * @returns 400 - The vehicle is invalid.
  * @returns 500 - An internal service error has occurred.
  */
-router.post('/management/vehicle/', function (req, res) {
+Router.post('/management/vehicle/', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1004/api/v1/vehicles');
 })
@@ -73,7 +151,7 @@ router.post('/management/vehicle/', function (req, res) {
  * @returns 400 - The new vehicle is invalid.
  * @returns 500 - An internal service error has occurred.
  */
-router.put('/management/vehicle/:vehId', function (req, res) {
+Router.put('/management/vehicle/:vehId', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1004/api/v1/vehicles/' + req.params.vehId);
 })
@@ -87,7 +165,7 @@ router.put('/management/vehicle/:vehId', function (req, res) {
  * @returns 404 - The identifier was not found.
  * @returns 500 - An internal service error has occurred.
  */
-router.delete('/management/vehicle/:vehId', function (req, res) {
+Router.delete('/management/vehicle/:vehId', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1004/api/v1/vehicles/' + req.params.vehId);
 })
@@ -99,7 +177,7 @@ router.delete('/management/vehicle/:vehId', function (req, res) {
  * @returns {array<Vehicle>} 200 - The vehicles were successfully retrieved.
  * @returns 500 - An internal service error has occurred.
  */
-router.get('/vehicle/', function (req, res) {
+Router.get('/vehicle/', function (req, res) {
   // Requires authentication and email should be retrieved from session
   res.redirect('http://localhost:1004/api/v1/vehicles');
 })
@@ -112,7 +190,7 @@ router.get('/vehicle/', function (req, res) {
  * @returns 400 - The price is invalid.
  * @returns 500 - An internal service error has occurred.
  */
-router.post('/management/vehiclePrice/', function (req, res) {
+Router.post('/management/vehiclePrice/', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1005/api/v1/prices');
 })
@@ -127,7 +205,7 @@ router.post('/management/vehiclePrice/', function (req, res) {
  * @returns 400 - The new price is invalid.
  * @returns 500 - An internal service error has occurred.
  */
-router.put('/management/vehiclePrice/:vehType', function (req, res) {
+Router.put('/management/vehiclePrice/:vehType', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1005/api/v1/prices/' + req.params.vehType);
 })
@@ -141,7 +219,7 @@ router.put('/management/vehiclePrice/:vehType', function (req, res) {
  * @returns 404 - The price was not found.
  * @returns 500 - An internal service error has occurred.
  */
-router.delete('/management/vehiclePrice/:vehType', function (req, res) {
+Router.delete('/management/vehiclePrice/:vehType', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1005/api/v1/prices/' + req.params.vehType);
 })
@@ -153,9 +231,9 @@ router.delete('/management/vehiclePrice/:vehType', function (req, res) {
  * @returns {array<Price>} 200 - The prices were successfully retrieved.
  * @returns 500 - An internal service error has occurred.
  */
-router.get('/management/vehiclePrice/', function (req, res) {
+Router.get('/management/vehiclePrice/', function (req, res) {
   // Requires authentication (Admin)
   res.redirect('http://localhost:1005/api/v1/prices/');
 })
 
-module.exports = router
+module.exports = Router

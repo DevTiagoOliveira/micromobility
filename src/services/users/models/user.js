@@ -5,7 +5,7 @@ const fs = require('fs')
 
 /**
  * Defines a User.
- * @typedef {User} Vehicle
+ * @typedef {User} User
  * @property {string} image - The user image.
  * @property {string} genre.required - The user genre.
  * @property {string} userType.required - The user type (Admin/User).
@@ -86,7 +86,6 @@ function UserDB (UserModel) {
     newUser.image = req.file.filename
     newUser.age = imageRec.age
     newUser.genre = imageRec.genre
-    console.log(newUser)
     return save(newUser)
   }
 
