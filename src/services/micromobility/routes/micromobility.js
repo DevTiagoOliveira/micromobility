@@ -236,4 +236,28 @@ Router.get('/management/vehiclePrice/', function (req, res) {
   res.redirect('http://localhost:1005/api/v1/prices/');
 })
 
+/**
+ * GET /api/v1/micromobility/management/activeVehicle/
+ * @tags Vehicles
+ * @summary Returns all active vehicles.
+ * @returns {array<Vehicle>} 200 - The vehicles were successfully retrieved.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.get('/management/activeVehicle/', function (req, res) {
+  // Requires authentication (Admin)
+  res.redirect('http://localhost:1004/api/v1/vehicles/active');
+})
+
+/**
+ * GET /api/v1/micromobility/management/vehicle/bat/:bat
+ * @tags Vehicles
+ * @summary Returns all vehicles with charge lower than :bat.
+ * @returns {array<Vehicle>} 200 - The vehicles were successfully retrieved.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.get('/management/vehicle/bat/:bat', function (req, res) {
+  // Requires authentication (Admin)
+  res.redirect('http://localhost:1004/api/v1//vehicles/bat/' + req.params.bat);
+})
+
 module.exports = Router

@@ -65,6 +65,30 @@ class Vehicles {
     })
   }
 
+  getVehiclesWithBatLowerThan (bat, callback) {
+    const filter = { charge: { $lt: bat }  }
+
+    this.model.find(filter, (err, vehicles) => {
+      if (err) {
+        callback(err, null)
+      }
+
+      callback(null, vehicles)
+    })
+  }
+
+  getActiveVehicles (callback) {
+    const filter = { isAvailable: true }
+
+    this.model.find(filter, (err, vehicles) => {
+      if (err) {
+        callback(err, null)
+      }
+
+      callback(null, vehicles)
+    })
+  }
+
   readAll (callback) {
     const filter = {}
 
