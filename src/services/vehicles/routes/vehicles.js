@@ -13,8 +13,6 @@ const router = express.Router()
 router.post('/vehicles', (req, res) => {
   if (!req.body.type) {
     res.status(400).send()
-  } else if (!req.body.isAvailable) {
-    res.status(400).send()
   } else if (!req.body.charge) {
     res.status(400).send()
   } else if (!req.body.location) {
@@ -55,6 +53,41 @@ router.get('/vehicles/:id/price', (req, res) => {
       res.status(404).send()
     } else {
       res.status(200).send(price)
+    }
+  })
+})
+
+/**
+ * GET /api/v1/vehicles/active
+ * @tags Vehicles
+ * @summary Retrieve active vehicles.
+ * @returns 200 - Returned all vehicles successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+router.get('/vehicles/active', function (req, res) {
+  vehicles.getActiveVehicles((err, vehicles) => {
+    if (err) {
+      res.status(500).send()
+    } else {
+      res.status(200).send(vehicles)
+    }
+  })
+})
+
+/**
+ * GET /api/v1/vehicles/bat/:bat
+ * @tags Vehicles
+ * @summary Retrieve vehicles with battery percentage lower than :bat.
+ * @param {string} bat.params.required - The vehicle battery.
+ * @returns 200 - Returned all vehicles successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+router.get('/vehicles/bat/:bat', function (req, res) {
+  vehicles.getVehiclesWithBatLowerThan(req.params.bat, (err, vehicles) => {
+    if (err) {
+      res.status(500).send()
+    } else {
+      res.status(200).send(vehicles)
     }
   })
 })
