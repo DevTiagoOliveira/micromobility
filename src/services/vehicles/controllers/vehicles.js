@@ -20,6 +20,16 @@ function create (type, isAvailable, charge, location, callback) {
   })
 }
 
+function getVehiclesWithBatLowerThan (bat, callback) {
+  vehicles.getVehiclesWithBatLowerThan(bat, (err, vehicles) => {
+    if (err) {
+      callback(err, null)
+    }
+
+    callback(null, vehicles)
+  })
+}
+
 function read (id, callback) {
   vehicles.read(id, (err, vehicle) => {
     if (err) {
@@ -32,6 +42,16 @@ function read (id, callback) {
 
 function readAll (callback) {
   vehicles.readAll((err, vehicles) => {
+    if (err) {
+      callback(err, null)
+    }
+
+    callback(null, vehicles)
+  })
+}
+
+function getActiveVehicles (callback) {
+  vehicles.getActiveVehicles((err, vehicles) => {
     if (err) {
       callback(err, null)
     }
@@ -92,3 +112,5 @@ exports.readAll = readAll
 exports.readPrice = readPrice
 exports.update = update
 exports.delete = deleteVehicle
+exports.getActiveVehicles = getActiveVehicles
+exports.getVehiclesWithBatLowerThan = getVehiclesWithBatLowerThan

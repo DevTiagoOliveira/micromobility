@@ -1,0 +1,616 @@
+{
+	"info": {
+		"_postman_id": "e80b854e-aa70-4acc-9d9f-03267b5052c1",
+		"name": "Micromobility Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Monitoring",
+			"item": [
+				{
+					"name": "Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/monitoring/probe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"monitoring",
+								"probe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pricing Management",
+			"item": [
+				{
+					"name": "Create Pricing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleType\": \"Scooter\",\r\n    \"price\": 1.98\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehiclePrice",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pricing",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/Scooter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehiclePrice",
+								"Scooter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pricing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicleType\": \"Scooter\",\r\n    \"price\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/Scooter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehiclePrice",
+								"Scooter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Pricing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehiclePrice",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/tiagoo/Desktop/man.jpg"
+								},
+								{
+									"key": "userType",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "td@ipca.comdas",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user1ads",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "user1passasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/getUserDetails/td@ipca.comdas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"getUserDetails",
+								"td@ipca.comdas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add balance",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"balance\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/updateUserBalance/td@ipca.comdas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"updateUserBalance",
+								"td@ipca.comdas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle Management",
+			"item": [
+				{
+					"name": "Delete Vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/61e73ea9694abe730c09aa49",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehicle",
+								"61e73ea9694abe730c09aa49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Vehicle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"type\": \"Scooter\",    \"isAvailable\": false,    \"charge\": 100,    \"location\": {        \"longitude\": 41.5518,        \"latitude\": -8.4229    }}"
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/61e73ea9694abe730c09aa49",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehicle",
+								"61e73ea9694abe730c09aa49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"type\": \"Scooter\",    \"isAvailable\": true,    \"charge\": 100,    \"location\": {        \"longitude\": 41.5518,        \"latitude\": -8.4229    }}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle Price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/61e7fb9fa9aa9d76a66bea8a/price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"vehicle",
+								"61e7fb9fa9aa9d76a66bea8a",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/management/activeVehicle/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"management",
+								"activeVehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles With Charge Lower Than X",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility//management/vehicle/bat/50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"",
+								"management",
+								"vehicle",
+								"bat",
+								"50"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trip Management",
+			"item": [
+				{
+					"name": "Get All Trips",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Client Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/client/test@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"client",
+								"test@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Vehicle Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/veh/123123213213",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"veh",
+								"123123213213"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips By Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/vehtype/Scooter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"vehtype",
+								"Scooter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trip",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"dadadada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Trip",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								"dadadada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"vehicleType\":\"Scooter\",\r\n   \"vehicleId\":\"dadadaadadad\",\r\n   \"clientEmail\":\"teste@teste.com\",\r\n   \"cost\":100,\r\n   \"tripDetails\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   },\r\n   \"transactions\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

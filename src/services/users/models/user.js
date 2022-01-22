@@ -5,7 +5,7 @@ const fs = require('fs')
 
 /**
  * Defines a User.
- * @typedef {User} Vehicle
+ * @typedef {User} User
  * @property {string} image - The user image.
  * @property {string} genre.required - The user genre.
  * @property {string} userType.required - The user type (Admin/User).
@@ -20,7 +20,7 @@ const UserSchema = new Schema(
     image: { type: String, required: false },
     genre: { type: String, required: true },
     age: { type: Number, required: true, min: [16, 'User must be over 16 years old'] },
-    userType: { type: String, required: true },
+    userType: { type: String, required: true , enum: ['Admin', 'Client']},
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
@@ -34,6 +34,7 @@ function UserDB (UserModel) {
   const service = {
     getById,
     getByEmail,
+    updateBalance,
     getAll,
     create,
     update,
@@ -60,6 +61,16 @@ function UserDB (UserModel) {
     })
   }
 
+  function updateBalance (userDAO) {
+    return new Promise(function (resolve, reject) {
+      UserModel.findOneAndUpdate({ email: userDAO.email }, { balance: userDAO.balance }, function (err, user) {
+        if (err) reject(err)
+
+        resolve(user)
+      })
+    })
+  }
+
   function getAll () {
     return new Promise(function (resolve, reject) {
       UserModel.find({}, function (err, users) {
@@ -75,7 +86,6 @@ function UserDB (UserModel) {
     newUser.image = req.file.filename
     newUser.age = imageRec.age
     newUser.genre = imageRec.genre
-    console.log(newUser)
     return save(newUser)
   }
 
