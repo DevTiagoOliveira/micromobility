@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const TripController = require('../controllers/trip')
+const axios = require('axios')
 
 /**
  * GET /api/v1/micromobility/trips
@@ -126,6 +127,32 @@ Router.patch('/updateUserBalance/:email', function (req, res) {
 Router.get('/vehicle/:specVehId/price', function (req, res) {
   // Requires authentication
   res.redirect('http://localhost:1004/api/v1/vehicles/' + req.params.specVehId + '/price');
+})
+
+/**
+ * GET /api/v1/micromobility/vehicle/nearest
+ * @tags Vehicles
+ * @summary Reads the top 3 nearest vehicle to the client.
+ * @param {string} req.query.xorigin - The client xorigin.
+ * @param {string} req.query.yorigin - The client yorigin.
+ * @returns {array<Vehicle>} 200 - The vehicles were successfully retrieved.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.get('/vehicle/nearest', async function (req, res) {
+  // Requires authentication
+  const response = await axios.get('http://vehicles-service:1004/api/v1/vehicles'); 
+  
+  for (var i = 0; i < response.data.length; i++) {
+    var vehicleDistance =   await axios.get('http://shortest-path-service:1002/api/v1/shortest-path/distance?xorigin=' + req.query.xorigin + '&yorigin=' + req.query.yorigin + '&xdestination=' + response.data[i].location.longitude + '&ydestination=' + response.data[i].location.latitude); 
+    response.data[i].distance = vehicleDistance.data.result;
+  }
+
+  response.data = response.data.sort(function(a, b) {
+        var x = a.distance; var y = b.distance;
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  })
+    
+  res.status(200).send(response.data.slice(0,3))
 })
 
 /**
