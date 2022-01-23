@@ -192,34 +192,37 @@ Router.post('/management/vehicle/', function (req, res) {
  * @returns 500 - An internal service error has occurred.
  */
 Router.post('/start', async function (req, res) {
-
-  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
-  
-  if(userDetails.data[0].balance > 10){
-
-    // Update Vehicle Status
-    const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
-    getVehicle.data.isAvailable = false
-    const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data); 
+  try{
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
     
-    // Register New Trip
-    const newTrip = {}
-    newTrip.transactions = {}
-    newTrip.tripDetails = {}
-    newTrip.tripDetails.origin = {}
-    newTrip.tripDetails.origin.longitude = req.body.TripDetails.origin.longitude
-    newTrip.tripDetails.origin.latitude = req.body.TripDetails.origin.latitude
-    newTrip.cost = 0
-    newTrip.clientEmail = req.body.clientEmail
-    newTrip.vehicleId = req.body.vehicleId
-    newTrip.vehicleType = req.body.vehicleType
+    if(userDetails.data[0].balance > 10){
 
-    const createTrip = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+      // Update Vehicle Status
+      const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+      getVehicle.data.isAvailable = false
+      const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data); 
+      
+      // Register New Trip
+      const newTrip = {}
+      newTrip.transactions = {}
+      newTrip.tripDetails = {}
+      newTrip.tripDetails.origin = {}
+      newTrip.tripDetails.origin.longitude = req.body.TripDetails.origin.longitude
+      newTrip.tripDetails.origin.latitude = req.body.TripDetails.origin.latitude
+      newTrip.cost = 0
+      newTrip.clientEmail = req.body.clientEmail
+      newTrip.vehicleId = req.body.vehicleId
+      newTrip.vehicleType = req.body.vehicleType
 
-    res.status(200).send("Trip started with success")
+      const createTrip = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
 
-  } else {
-    res.status(400).send("User does not have enough balance.")
+      res.status(200).send("Trip started with success")
+
+    } else {
+      res.status(400).send("User does not have enough balance.")
+    }
+  } catch(e){
+    res.status(400).send("Error starting trip")
   }
 })
 
@@ -232,18 +235,22 @@ Router.post('/start', async function (req, res) {
  * @returns 500 - An internal service error has occurred.
  */
 Router.post('/running', async function (req, res) {
+  try{
+    // Update Balance
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+    userDetails.data[0].balance = userDetails.data[0].balance - 5
+    const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
 
-  // Update Balance
-  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
-  userDetails.data[0].balance = userDetails.data[0].balance - 5
-  const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
+    // Update Vehicle Batery
+    const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+    getVehicle.data.charge = getVehicle.data.charge - 10
+    const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
 
-  // Update Vehicle Batery
-  const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
-  getVehicle.data.charge = getVehicle.data.charge - 10
-  const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+    res.status(200).send("Trip updated with success")
 
-  res.status(200).send("Trip updated with success")
+  } catch(e){
+    res.status(400).send("Error processing trip message")
+  }
 })
 
 /**
@@ -254,23 +261,26 @@ Router.post('/running', async function (req, res) {
  * @returns 500 - An internal service error has occurred.
  */
 Router.post('/end', async function (req, res) {
+  try{
+    // Update Balance
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+    userDetails.data[0].balance = userDetails.data[0].balance - 5
+    const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
 
-  // Update Balance
-  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
-  userDetails.data[0].balance = userDetails.data[0].balance - 5
-  const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
+    // Update Vehicle Batery
+    const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+    getVehicle.data.charge = getVehicle.data.charge - 10
+    getVehicle.data.isAvailable = true
+    const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
 
-  // Update Vehicle Batery
-  const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
-  getVehicle.data.charge = getVehicle.data.charge - 10
-  getVehicle.data.isAvailable = true
-  const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+    // Update Trip
+    const tripDetails = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
 
-  // Update Trip
-  const tripDetails = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+    res.status(200).send("Trip ended with success")
 
-  res.status(200).send("Trip ended with success")
-
+  } catch(e){
+    res.status(400).send("Error ending trip")
+  }
 })
 
 /**
