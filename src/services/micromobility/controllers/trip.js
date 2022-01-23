@@ -70,9 +70,23 @@ const create = (req, res) => {
  
 }
 
+/* Get Trip By Id */
+const getById = (req, res) => {
+  TripModel.getById(req.params.id)
+    .then((trip) => {
+      console.log(trip)
+      res.status(200).send(trip)
+    })
+    .catch((err) => {
+      console.log('Error:' + err)
+      res.status(404)
+      res.send(err)
+    })
+}
+
 /* Update Trip by Id */
 const update = (req, res) => {
-  TripModel.update(req.params.Id)
+  TripModel.update(req.params.id)
     .then((trip) => {
       console.log(trip.data)
       res.status(200).send(trip.data)
@@ -86,7 +100,7 @@ const update = (req, res) => {
 
 /* Remove User by Id */
 const remove = (req, res) => {
-  TripModel.remove(req.params.Id)
+  TripModel.remove(req.params.id)
     .then(() => {
       console.log('Deleted')
       res.status(204).send()

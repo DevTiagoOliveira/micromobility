@@ -1,0 +1,374 @@
+[
+    {
+        "id": "96dc7e5c67fbd8ab",
+        "type": "tab",
+        "label": "Trip Simulation",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fe9f930314c5d7cd",
+        "type": "inject",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 640,
+        "wires": [
+            [
+                "8f601475e65ac146"
+            ]
+        ]
+    },
+    {
+        "id": "8f601475e65ac146",
+        "type": "http request",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "nearest vehicles",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://micromobility-service:1000/api/v1/micromobility/vehicle/nearest?xorigin=-9.54229&yorigin=50.5518",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 440,
+        "y": 640,
+        "wires": [
+            [
+                "475d89ebe53d8914"
+            ]
+        ]
+    },
+    {
+        "id": "7757e59635318239",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Get Nearest Vehicles",
+        "info": "",
+        "x": 450,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "650c0804fce7b18b",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Get Shortest Path to Selected Vehicle",
+        "info": "",
+        "x": 1200,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "475d89ebe53d8914",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "prepare path url",
+        "func": "msg.payload = \"http://micromobility-service:1000/api/v1/micromobility/vehicle/nearest/path?xorigin=-9.54229&yorigin=50.5518&xdestination=\" + msg.payload[0].location.longitude + \"&ydestination=\" + msg.payload[0].location.latitude;\nreturn msg ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 640,
+        "wires": [
+            [
+                "a1913bfc0dcf264d"
+            ]
+        ]
+    },
+    {
+        "id": "5b142a8b53ab1ec9",
+        "type": "http request",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "shortest path",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1200,
+        "y": 640,
+        "wires": [
+            [
+                "26cae36559603927"
+            ]
+        ]
+    },
+    {
+        "id": "a1913bfc0dcf264d",
+        "type": "change",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 700,
+        "wires": [
+            [
+                "5b142a8b53ab1ec9"
+            ]
+        ]
+    },
+    {
+        "id": "580ec4e4e39c39d4",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Prepare Dynamic Url",
+        "info": "",
+        "x": 780,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "7882930c8e373b87",
+        "type": "mqtt out",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Start trip",
+        "topic": "rental/start",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "be14f32ece50e90e",
+        "x": 1670,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "03d27fc6735d50dc",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "wait 1 min",
+        "func": "const date = Date.now();\nlet currentDate = null;\ndo {\n    currentDate = Date.now();\n} while (currentDate - date < 60000);\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 820,
+        "wires": [
+            [
+                "ed1c3d2d987e6e3c",
+                "6de8bc8dced2a82c"
+            ]
+        ]
+    },
+    {
+        "id": "ed1c3d2d987e6e3c",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "wait 1 min",
+        "func": "const date = Date.now();\nlet currentDate = null;\ndo {\n    currentDate = Date.now();\n} while (currentDate - date < 60000);\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 1020,
+        "wires": [
+            [
+                "b1bc5095ca66d0c1"
+            ]
+        ]
+    },
+    {
+        "id": "e90b6487be057990",
+        "type": "mqtt out",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "End trip",
+        "topic": "rental/end",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "be14f32ece50e90e",
+        "x": 1670,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "c3f329ff5dcbf391",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Start Trip/Rental",
+        "info": "",
+        "x": 1670,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "2224ed6c5a3edbc3",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Stop Trip/Rental",
+        "info": "",
+        "x": 1670,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "c1c40887d6c50e65",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Still Running",
+        "info": "",
+        "x": 1660,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "2a710e818c02eec1",
+        "type": "mqtt out",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Active trip",
+        "topic": "rental/running",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "be14f32ece50e90e",
+        "x": 1670,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "b3fa71f771ee7e78",
+        "type": "comment",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "Percurso Ideal",
+        "info": "",
+        "x": 870,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "26cae36559603927",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "prepare test payload",
+        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\",\n    \"TripDetails\": {\n        \"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 640,
+        "wires": [
+            [
+                "7882930c8e373b87"
+            ]
+        ]
+    },
+    {
+        "id": "6de8bc8dced2a82c",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "prepare test payload",
+        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\"\n    }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 820,
+        "wires": [
+            [
+                "2a710e818c02eec1"
+            ]
+        ]
+    },
+    {
+        "id": "b1bc5095ca66d0c1",
+        "type": "function",
+        "z": "96dc7e5c67fbd8ab",
+        "name": "prepare test payload",
+        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\",\n    \"TripDetails\": {\n\t\"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    },\n        \"destination\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 1020,
+        "wires": [
+            [
+                "e90b6487be057990"
+            ]
+        ]
+    },
+    {
+        "id": "be14f32ece50e90e",
+        "type": "mqtt-broker",
+        "name": "Mosca",
+        "broker": "message-broker",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
