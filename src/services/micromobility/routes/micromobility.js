@@ -156,6 +156,22 @@ Router.get('/vehicle/nearest', async function (req, res) {
 })
 
 /**
+ * GET /api/v1/micromobility/vehicle/path
+ * @tags Vehicles
+ * @summary Return path to specific vehicle
+ * @param {string} req.query.xorigin - The client xorigin.
+ * @param {string} req.query.yorigin - The client yorigin.
+ * @param {string} req.query.xdestination - The vehicle xdestination.
+ * @param {string} req.query.ydestination - The vehicle ydestination.
+ * @returns 200 - The path was successfully retrieved.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.get('/vehicle/nearest/path', async function (req, res) {
+    const response = await axios.get('http://shortest-path-service:1002/api/v1/shortest-path/?xorigin=' + req.query.xorigin + '&yorigin=' + req.query.yorigin + '&xdestination=' + req.query.xdestination + '&ydestination=' + req.query.ydestination); 
+    res.status(200).send(response.data)
+})
+
+/**
  * POST /api/v1/micromobility/management/vehicle/
  * @tags Vehicles
  * @summary Creates the specified vehicle (vehicle type must exist in pricing service).
@@ -166,6 +182,95 @@ Router.get('/vehicle/nearest', async function (req, res) {
 Router.post('/management/vehicle/', function (req, res) {
   // Requires authentication (Admin)
   res.redirect(308, 'http://localhost:1004/api/v1/vehicles');
+})
+
+/**
+ * POST /api/v1/micromobility/start
+ * @tags Trips
+ * @summary Starts Trip.
+ * @returns 200 - The trip started.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.post('/start', async function (req, res) {
+
+  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+  
+  if(userDetails.data[0].balance > 10){
+
+    // Update Vehicle Status
+    const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+    getVehicle.data.isAvailable = false
+    const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data); 
+    
+    // Register New Trip
+    const newTrip = {}
+    newTrip.transactions = {}
+    newTrip.tripDetails = {}
+    newTrip.tripDetails.origin = {}
+    newTrip.tripDetails.origin.longitude = req.body.TripDetails.origin.longitude
+    newTrip.tripDetails.origin.latitude = req.body.TripDetails.origin.latitude
+    newTrip.cost = 0
+    newTrip.clientEmail = req.body.clientEmail
+    newTrip.vehicleId = req.body.vehicleId
+    newTrip.vehicleType = req.body.vehicleType
+
+    const createTrip = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+
+    res.status(200).send("Trip started with success")
+
+  } else {
+    res.status(400).send("User does not have enough balance.")
+  }
+})
+
+
+/**
+ * POST /api/v1/micromobility/running
+ * @tags Trips
+ * @summary Intermediate messages.
+ * @returns 200 - The trip started.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.post('/running', async function (req, res) {
+
+  // Update Balance
+  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+  userDetails.data[0].balance = userDetails.data[0].balance - 5
+  const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
+
+  // Update Vehicle Batery
+  const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+  getVehicle.data.charge = getVehicle.data.charge - 10
+  const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+
+  res.status(200).send("Trip updated with success")
+})
+
+/**
+ * POST /api/v1/micromobility/end
+ * @tags Trips
+ * @summary End Trip.
+ * @returns 200 - The trip started.
+ * @returns 500 - An internal service error has occurred.
+ */
+Router.post('/end', async function (req, res) {
+
+  // Update Balance
+  const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+  userDetails.data[0].balance = userDetails.data[0].balance - 5
+  const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
+
+  // Update Vehicle Batery
+  const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
+  getVehicle.data.charge = getVehicle.data.charge - 10
+  getVehicle.data.isAvailable = true
+  const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+
+  // Update Trip
+  const tripDetails = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+
+  res.status(200).send("Trip ended with success")
+
 })
 
 /**
