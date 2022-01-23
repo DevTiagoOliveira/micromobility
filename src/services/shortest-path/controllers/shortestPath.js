@@ -16,8 +16,8 @@ function getRota (origin, destination) {
 }
 
 /* function to calculate distance */
-function getDistance (data) {
-  var data = response3.data
+function getDistance (response) {
+  var data = response.data
   var i = 0
   var distancia = 0
   while (i < data.features.length) {
@@ -32,10 +32,10 @@ const getShortestPath = (req, res) => {
   const origin = {}
   origin.x = req.query.xorigin
   origin.y = req.query.yorigin
+
   const destination = {}
   destination.x = req.query.xdestination
   destination.y = req.query.ydestination
-
   var originVertUrl = getVertice(origin)
   var destinationVertUrl = getVertice(destination)
 
@@ -65,7 +65,47 @@ const getShortestPath = (req, res) => {
   })
 }
 
+/* Get Shortest Path Distance */
+const getShortestPathDistance = (req, res) => {
+  const origin = {}
+  origin.x = req.query.xorigin
+  origin.y = req.query.yorigin
+  const destination = {}
+  destination.x = req.query.xdestination
+  destination.y = req.query.ydestination
+
+  var originVertUrl = getVertice(origin)
+  var destinationVertUrl = getVertice(destination)
+
+  axios.get(originVertUrl)
+    .then((response1) => {
+    const originalVert = response1.data.features[0].properties.id
+    axios.get(destinationVertUrl)
+      .then((response2) => {
+        const destinationVert = response2.data.features[0].properties.id
+        const rotaUrl = getRota(originalVert, destinationVert)
+        axios.get(rotaUrl)
+          .then((response3) => {
+            try {
+              res.status(200)
+              var value = getDistance(response3)
+              res.send({ result: value});
+            } catch (err) {
+              console.error(err);
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+    }).catch(error => {
+      console.log(error)
+    })
+  }).catch(error => {
+    console.log(error)
+  })
+}
+
 /* Export */
 module.exports = {
-  getShortestPath
+  getShortestPath,
+  getShortestPathDistance
 }
