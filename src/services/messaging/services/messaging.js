@@ -21,7 +21,7 @@ function connect (topicMessage, messageCallback) {
     })
   })
   client.on('error', (err) => {
-    console.error('An error has occurred while establishing the connection to the message broker', err)
+    console.error('An error has occurred while establishing the connection to the message broker')
   })
   client.on('disconnected', () => {
     console.log('Connection to the message broker has been disrupted')

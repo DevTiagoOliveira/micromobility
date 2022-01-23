@@ -150,7 +150,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1002/api/v1/shortest-path?origin=x:-8.3544312;y:42.5111985&destination=x:-8.3544312;y:42.5111985",
+					"raw": "http://localhost:1002/api/v1/shortest-path/?xorigin=-8.3544312&yorigin=42.5111985&xdestination=-8.3544312&ydestination=42.5111985",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -163,12 +163,72 @@
 					],
 					"query": [
 						{
-							"key": "origin",
-							"value": "x:-8.3544312;y:42.5111985"
+							"key": "xorigin",
+							"value": "-8.3544312"
 						},
 						{
-							"key": "destination",
-							"value": "x:-8.3544312;y:42.5111985"
+							"key": "yorigin",
+							"value": "42.5111985"
+						},
+						{
+							"key": "xdestination",
+							"value": "-8.3544312"
+						},
+						{
+							"key": "ydestination",
+							"value": "42.5111985"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shortest Path Distance Between 2 Points",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1002/api/v1/shortest-path/distance?xorigin=-8.3544312&yorigin=42.5111985&xdestination=-8.3544312&ydestination=41.5111985",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1002",
+					"path": [
+						"api",
+						"v1",
+						"shortest-path",
+						"distance"
+					],
+					"query": [
+						{
+							"key": "xorigin",
+							"value": "-8.3544312"
+						},
+						{
+							"key": "yorigin",
+							"value": "42.5111985"
+						},
+						{
+							"key": "xdestination",
+							"value": "-8.3544312"
+						},
+						{
+							"key": "ydestination",
+							"value": "42.5111985"
 						}
 					]
 				}

@@ -101,7 +101,7 @@ router.get('/vehicles/bat/:bat', function (req, res) {
  * @returns 404 - The vehicle was not found.
  * @returns 500 - An internal service error has occurred.
  */
-router.get('/vehicles/:id', (req, res) => {
+router.get('/vehicles/specific/:id', (req, res) => {
   vehicles.read(req.params.id, (err, vehicle) => {
     if (err) {
       res.status(500).send()
@@ -142,8 +142,6 @@ router.get('/vehicles', (req, res) => {
  */
 router.put('/vehicles/:id', (req, res) => {
   if (!req.body.type) {
-    res.status(400).send()
-  } else if (!req.body.isAvailable) {
     res.status(400).send()
   } else if (!req.body.charge) {
     res.status(400).send()
