@@ -8,6 +8,8 @@ const config = require('./config')
 const monitoringRouter = require('./routes/monitoring')
 const micromobilityRoute = require('./routes/micromobility')
 const database = require('./services/database')
+const passport = require('passport')
+require('./utils/passport')(passport)
 
 const app = express()
 
@@ -40,5 +42,7 @@ app.use((req, res, next) => {
 app.listen(config.http.port, () => {
   console.log(`Service listening at http://${config.http.server}:${config.http.port}`)
 })
+
+app.use(passport.initialize());
 
 database.connect()
