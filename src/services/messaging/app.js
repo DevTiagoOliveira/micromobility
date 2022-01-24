@@ -48,11 +48,11 @@ messaging.connect(
   },
   (msgObj) => {
     if (msgObj.topicType === 'start') {
-      axios.post('http://localhost:1000/api/v1/messaging/start', msgObj)
+      axios.post('http://micromobility-service:1000/api/v1/micromobility/start', msgObj)
     } else if (msgObj.topicType === 'running') {
-      axios.post('http://localhost:1000/api/v1/messaging/running', msgObj)
+      axios.post('http://micromobility-service:1000/api/v1/micromobility/running', msgObj)
     } else if (msgObj.topicType === 'end') {
-      axios.post('http://localhost:1000/api/v1/messaging/start', msgObj)
+      axios.post('http://micromobility-service:1000/api/v1/micromobility/end', msgObj)
     } else {
       console.log('Unrecognized topic type' + msgObj.topicType)
     }

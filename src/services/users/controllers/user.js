@@ -80,10 +80,10 @@ const create = (req, res) => {
 
 /* Update User by Id */
 const update = (req, res) => {
-  UserModel.update(req.params.Id)
+  UserModel.update(req.params.id, req.body)
     .then((user) => {
-      console.log(user.data)
-      res.status(200).send(user.data)
+      console.log(user)
+      res.status(200).send(user)
     })
     .catch((err) => {
       console.log('Error:' + err)
@@ -94,7 +94,7 @@ const update = (req, res) => {
 
 /* Remove User by Id */
 const remove = (req, res) => {
-  UserModel.remove(req.params.Id)
+  UserModel.remove(req.params.id)
     .then(() => {
       console.log('Deleted')
       res.status(204).send()

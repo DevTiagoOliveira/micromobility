@@ -447,6 +447,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Nearest Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/nearest?xorigin=-9.54229&yorigin=50.5518",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"vehicle",
+								"nearest"
+							],
+							"query": [
+								{
+									"key": "xorigin",
+									"value": "-9.54229"
+								},
+								{
+									"key": "yorigin",
+									"value": "50.5518"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
