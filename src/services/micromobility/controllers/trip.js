@@ -88,8 +88,8 @@ const getById = (req, res) => {
 const update = (req, res) => {
   TripModel.update(req.params.id)
     .then((trip) => {
-      console.log(trip.data)
-      res.status(200).send(trip.data)
+      console.log(trip)
+      res.status(200).send(trip)
     })
     .catch((err) => {
       console.log('Error:' + err)
