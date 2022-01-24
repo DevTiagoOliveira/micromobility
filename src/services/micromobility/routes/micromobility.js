@@ -15,6 +15,17 @@ Router.get('/trips', function (req, res) {
 })
 
 /**
+ * GET /api/v1/micromobility/trips/:id
+ * @tags Trip
+ * @summary Retrieve all trips.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips/:id', function (req, res) {
+  TripController.getById(req, res)
+})
+
+/**
  * GET /api/v1/micromobility/trips/client/:email
  * @tags Trip
  * @summary Retrieve trips by user email.
@@ -261,6 +272,7 @@ Router.post('/running', async function (req, res) {
  * @returns 500 - An internal service error has occurred.
  */
 Router.post('/end', async function (req, res) {
+
   try{
     // Update Balance
     const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
@@ -274,8 +286,15 @@ Router.post('/end', async function (req, res) {
     const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
 
     // Update Trip
-    const tripDetails = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+    /*
+    NEEDS REVISION - TO DO 
+    const tripDetails = await axios.get('http://micromobility-service:1000/api/v1/micromobility/trips/' + req.body.tripId);
+    tripDetails.tripDetails.destination = {}
+    tripDetails.tripDetails.destination.longitude = req.body.TripDetails.destination.longitude
+    tripDetails.tripDetails.destination.latitude = req.body.TripDetails.destination.latitude
 
+    const updatedTripDetails = await axios.patch('http://micromobility-service:1000/api/v1/micromobility/trips/' + req.body.tripId, tripDetails);
+    */
     res.status(200).send("Trip ended with success")
 
   } catch(e){
