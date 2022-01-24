@@ -2,6 +2,44 @@ const express = require('express')
 const Router = express.Router()
 const TripController = require('../controllers/trip')
 const axios = require('axios')
+const passport = require('passport')
+const utils = require('../utils/utils')
+const jsonwebtoken = require('jsonwebtoken')
+
+const fs = require('fs');
+const path = require('path');
+
+const pathToKey = path.join(__dirname, '..', 'id_rsa_priv.pem');
+const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
+
+/**
+ * POST /api/v1/micromobility/login
+ * @tags login
+ * @summary Do login.
+ * @returns 200 - login done successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.post('/login', function(req, res, next){
+  axios.get('http://users-service:1003/api/v1/user/login/' + req.body.username) 
+    .then((response) => {
+      if(!response) {
+        res.status(401).json({success: false, msg: "Could not find user"});
+      }
+          
+    const isValid = utils.validPassword(req.body.password, response.data[0].password, response.data[0].salt);
+
+    if (isValid){
+        const tokenObject = utils.issueJWT(response.data[0]);
+
+        res.status(200).json({ success: true, token: tokenObject.token, expiresIn: tokenObject.expires});
+    }
+    else {
+        res.status(401).json({success: false, msg: "you entered the wrong password"});
+    }
+  }).catch(error => {
+    console.log(error)
+  })
+});
 
 /**
  * GET /api/v1/micromobility/trips
@@ -10,8 +48,19 @@ const axios = require('axios')
  * @returns 200 - Returned all trips successfully.
  * @returns 404 - An internal service error has occurred.
  */
-Router.get('/trips', function (req, res) {
-  TripController.getAll(req, res)
+Router.get('/trips', passport.authenticate('jwt', {session: false}), function (req, res) {
+  TripController.getAll(req, res);
+})
+
+/**
+ * GET /api/v1/micromobility/trips/:id
+ * @tags Trip
+ * @summary Retrieve trip by id.
+ * @returns 200 - Returned all trips successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/trips/:id', function (req, res) {
+  TripController.getById(req, res)
 })
 
 /**
@@ -92,15 +141,16 @@ Router.post('/register', function (req, res) {
 })
 
 /**
- * GET /api/v1/micromobility/getUserDetails/:email
+ * GET /api/v1/micromobility/getUserDetails
  * @tags User
  * @summary Retrieve user by email.
  * @returns 200 - Returned user successfully.
  * @returns 404 - An internal service error has occurred.
  */
-Router.get('/getUserDetails/:email', function (req, res) {
-  // Requires authentication and email should be retrieved from session
-  res.redirect('http://localhost:1003/api/v1/user/' + req.params.email);
+Router.get('/getUserDetails', passport.authenticate('jwt', {session: false}), function (req, res) {
+  var token = req.headers.authorization.replace("Bearer ", "")
+  var decoded = jsonwebtoken.decode(token, PRIV_KEY)
+  res.redirect('http://localhost:1003/api/v1/user/' + decoded.email);
 })
 
 /**
@@ -179,9 +229,14 @@ Router.get('/vehicle/nearest/path', async function (req, res) {
  * @returns 400 - The vehicle is invalid.
  * @returns 500 - An internal service error has occurred.
  */
-Router.post('/management/vehicle/', function (req, res) {
-  // Requires authentication (Admin)
-  res.redirect(308, 'http://localhost:1004/api/v1/vehicles');
+Router.post('/management/vehicle/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  var token = req.headers.authorization.replace("Bearer ", "")
+  var decoded = jsonwebtoken.decode(token, PRIV_KEY)
+  if(decoded.userType == "Admin"){
+    res.redirect(308, 'http://localhost:1004/api/v1/vehicles');
+  }
+  else
+  res.status(401).json({success: false, msg: "Not Authorize to create vehicles"});
 })
 
 /**
@@ -193,7 +248,7 @@ Router.post('/management/vehicle/', function (req, res) {
  */
 Router.post('/start', async function (req, res) {
   try{
-    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/login/' + req.body.username); 
     
     if(userDetails.data[0].balance > 10){
 
@@ -201,7 +256,7 @@ Router.post('/start', async function (req, res) {
       const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
       getVehicle.data.isAvailable = false
       const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data); 
-      
+
       // Register New Trip
       const newTrip = {}
       newTrip.transactions = {}
@@ -216,6 +271,7 @@ Router.post('/start', async function (req, res) {
 
       const createTrip = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
 
+      console.log("Trip Started.")
       res.status(200).send("Trip started with success")
 
     } else {
@@ -237,7 +293,7 @@ Router.post('/start', async function (req, res) {
 Router.post('/running', async function (req, res) {
   try{
     // Update Balance
-    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/login/' + req.body.username); 
     userDetails.data[0].balance = userDetails.data[0].balance - 5
     const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
 
@@ -245,6 +301,8 @@ Router.post('/running', async function (req, res) {
     const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
     getVehicle.data.charge = getVehicle.data.charge - 10
     const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+
+    console.log("Trip Updated.")
 
     res.status(200).send("Trip updated with success")
 
@@ -261,9 +319,10 @@ Router.post('/running', async function (req, res) {
  * @returns 500 - An internal service error has occurred.
  */
 Router.post('/end', async function (req, res) {
+
   try{
     // Update Balance
-    const userDetails = await axios.get('http://users-service:1003/api/v1/user/' + req.body.clientEmail); 
+    const userDetails = await axios.get('http://users-service:1003/api/v1/user/login/' + req.body.username); 
     userDetails.data[0].balance = userDetails.data[0].balance - 5
     const updatedUserDetails = await axios.patch('http://users-service:1003/api/v1/user/' + userDetails.data[0]._id, userDetails.data[0]); 
 
@@ -274,7 +333,16 @@ Router.post('/end', async function (req, res) {
     const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
 
     // Update Trip
-    const tripDetails = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
+    /*
+    NEEDS REVISION - TO DO 
+    const tripDetails = await axios.get('http://micromobility-service:1000/api/v1/micromobility/trips/' + req.body.tripId);
+    tripDetails.tripDetails.destination = {}
+    tripDetails.tripDetails.destination.longitude = req.body.TripDetails.destination.longitude
+    tripDetails.tripDetails.destination.latitude = req.body.TripDetails.destination.latitude
+
+    const updatedTripDetails = await axios.patch('http://micromobility-service:1000/api/v1/micromobility/trips/' + req.body.tripId, tripDetails);
+    */
+    console.log("Trip Ended.")
 
     res.status(200).send("Trip ended with success")
 

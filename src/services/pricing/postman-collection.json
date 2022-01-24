@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "82f8734b-6253-4914-b81e-2044b5fba5c6",
+		"_postman_id": "ba6b1fe0-10fc-4e8e-9368-3fe2801acae3",
 		"name": "Pricing Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -71,7 +71,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1005/api/v1/prices/Bicycle",
+							"raw": "http://localhost:1005/api/v1/prices/:vehicleType",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -81,7 +81,13 @@
 								"api",
 								"v1",
 								"prices",
-								"Bicycle"
+								":vehicleType"
+							],
+							"variable": [
+								{
+									"key": "vehicleType",
+									"value": null
+								}
 							]
 						}
 					},
@@ -146,7 +152,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1005/api/v1/prices/Bicycle",
+							"raw": "http://localhost:1005/api/v1/prices/:vehicleType",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -156,7 +162,13 @@
 								"api",
 								"v1",
 								"prices",
-								"Bicycle"
+								":vehicleType"
+							],
+							"variable": [
+								{
+									"key": "vehicleType",
+									"value": null
+								}
 							]
 						}
 					},

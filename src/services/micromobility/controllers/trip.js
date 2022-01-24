@@ -86,10 +86,10 @@ const getById = (req, res) => {
 
 /* Update Trip by Id */
 const update = (req, res) => {
-  TripModel.update(req.params.id)
+  TripModel.update(req.params.id, req.body)
     .then((trip) => {
-      console.log(trip.data)
-      res.status(200).send(trip.data)
+      console.log(trip)
+      res.status(200).send(trip)
     })
     .catch((err) => {
       console.log('Error:' + err)
@@ -115,6 +115,7 @@ const remove = (req, res) => {
 /* Export */
 module.exports = {
     getAll,
+    getById,
     getAllByEmail,
     getAllByVehId,
     getAllByVehType,

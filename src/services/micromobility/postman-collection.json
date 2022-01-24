@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e80b854e-aa70-4acc-9d9f-03267b5052c1",
+		"_postman_id": "f4fe1b3d-4c9d-4a18-8878-1053ccd07d1c",
 		"name": "Micromobility Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -74,7 +74,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/Scooter",
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/:vehType",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -86,7 +86,13 @@
 								"micromobility",
 								"management",
 								"vehiclePrice",
-								"Scooter"
+								":vehType"
+							],
+							"variable": [
+								{
+									"key": "vehType",
+									"value": null
+								}
 							]
 						}
 					},
@@ -107,7 +113,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/Scooter",
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehiclePrice/:vehType",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,7 +125,13 @@
 								"micromobility",
 								"management",
 								"vehiclePrice",
-								"Scooter"
+								":vehType"
+							],
+							"variable": [
+								{
+									"key": "vehType",
+									"value": null
+								}
 							]
 						}
 					},
@@ -210,9 +222,15 @@
 					"name": "Get User Details",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWVmMTk1NzViNDQ4YWJlNWFlY2M1MDYiLCJlbWFpbCI6InRkQGlwY2EuY29tZGFzIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTY0MzA1OTYzNzkzNCwiZXhwIjoxNjQzMDU5NzI0MzM0fQ.inODLYCp04w1U_74HIJ_Sw9jzZBT-WIOcf2iI6hwmA9g_KH4_RF7jGTNjAHBp6E9ffETuj2FGdju5ahvqL7mnYKKiNOje-FsIJLzcvuqSwvX9EgDcl4z73NUYjlnOUuxUJxeaXtCgzYpSTbiH_yN2lBXIonRliZZ6hAvELjrQhuhYPV5DRhHfGVy3v_YNz6UZXBwMx9gyQhTHYccjK5ZuYuSwS1LLpBYQIUkG4XDypkLF-Bgk7FHYTRxpZlN9INb0JqL2leOAG170ecc5VvWfwSXyrajxbTlZ2m2Oa6igwcnIZumz-nkWJCXAKEB4XJKMiOG3Vm-pakYLHNSuKUfR37x6HnewrZTkg3HwHALTj2yj2Ol6b3VxdQmhTbYRq6vUUvdCBVSzjAmOhjVrgN7gjnNeRpP5JyynOrw57FrE9NSnOX4vLzPEf-tk80yHZYmUqSKsVqg5yPdsg1MqgmgtASlSO1raNuT1DM-4_xDC9Fb46MqDGdYq0tliFOX1JWXumajxc2NONZbmWzR1EUx0Nq-at65ScZNNWiziQ6xHxhUYY_8RNqrOe22vaQHMYdt48Mn5RoZQAi_QBay1g4ObzwjhgXIAEoAwGdYdpn7vT7eMDeMsSA43NqrIBKql4bLDI61FzzWAFmUxj-1tSm3cqnFhHSyAzRiZUEX8jlB9PI",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/getUserDetails/td@ipca.comdas",
+							"raw": "http://localhost:1000/api/v1/micromobility/getUserDetails",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -222,8 +240,7 @@
 								"api",
 								"v1",
 								"micromobility",
-								"getUserDetails",
-								"td@ipca.comdas"
+								"getUserDetails"
 							]
 						}
 					},
@@ -236,7 +253,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"balance\": 2\r\n}",
+							"raw": "{\r\n    \"balance\": 200\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -244,7 +261,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/updateUserBalance/td@ipca.comdas",
+							"raw": "http://localhost:1000/api/v1/micromobility/updateUserBalance/:email",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -255,7 +272,44 @@
 								"v1",
 								"micromobility",
 								"updateUserBalance",
-								"td@ipca.comdas"
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1ads\",\r\n    \"password\": \"user1passasd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"login"
 							]
 						}
 					},
@@ -272,7 +326,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/61e73ea9694abe730c09aa49",
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -284,7 +338,13 @@
 								"micromobility",
 								"management",
 								"vehicle",
-								"61e73ea9694abe730c09aa49"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -316,14 +376,19 @@
 				{
 					"name": "Update Vehicle",
 					"request": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \"type\": \"Scooter\",    \"isAvailable\": false,    \"charge\": 100,    \"location\": {        \"longitude\": 41.5518,        \"latitude\": -8.4229    }}"
+							"raw": "{    \"type\": \"Scooter\",    \"isAvailable\": false,    \"charge\": 100,    \"location\": {        \"longitude\": 41.5518,        \"latitude\": -8.4229    }}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/61e73ea9694abe730c09aa49",
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -335,7 +400,13 @@
 								"micromobility",
 								"management",
 								"vehicle",
-								"61e73ea9694abe730c09aa49"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -345,7 +416,13 @@
 					"name": "Create Vehicle",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWVmMTk1NzViNDQ4YWJlNWFlY2M1MDYiLCJlbWFpbCI6InRkQGlwY2EuY29tZGFzIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTY0MzA1OTYzNzkzNCwiZXhwIjoxNjQzMDU5NzI0MzM0fQ.inODLYCp04w1U_74HIJ_Sw9jzZBT-WIOcf2iI6hwmA9g_KH4_RF7jGTNjAHBp6E9ffETuj2FGdju5ahvqL7mnYKKiNOje-FsIJLzcvuqSwvX9EgDcl4z73NUYjlnOUuxUJxeaXtCgzYpSTbiH_yN2lBXIonRliZZ6hAvELjrQhuhYPV5DRhHfGVy3v_YNz6UZXBwMx9gyQhTHYccjK5ZuYuSwS1LLpBYQIUkG4XDypkLF-Bgk7FHYTRxpZlN9INb0JqL2leOAG170ecc5VvWfwSXyrajxbTlZ2m2Oa6igwcnIZumz-nkWJCXAKEB4XJKMiOG3Vm-pakYLHNSuKUfR37x6HnewrZTkg3HwHALTj2yj2Ol6b3VxdQmhTbYRq6vUUvdCBVSzjAmOhjVrgN7gjnNeRpP5JyynOrw57FrE9NSnOX4vLzPEf-tk80yHZYmUqSKsVqg5yPdsg1MqgmgtASlSO1raNuT1DM-4_xDC9Fb46MqDGdYq0tliFOX1JWXumajxc2NONZbmWzR1EUx0Nq-at65ScZNNWiziQ6xHxhUYY_8RNqrOe22vaQHMYdt48Mn5RoZQAi_QBay1g4ObzwjhgXIAEoAwGdYdpn7vT7eMDeMsSA43NqrIBKql4bLDI61FzzWAFmUxj-1tSm3cqnFhHSyAzRiZUEX8jlB9PI",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{    \"type\": \"Scooter\",    \"isAvailable\": true,    \"charge\": 100,    \"location\": {        \"longitude\": 41.5518,        \"latitude\": -8.4229    }}",
@@ -380,7 +457,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/61e7fb9fa9aa9d76a66bea8a/price",
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/:mongodbID/price",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -391,8 +468,14 @@
 								"v1",
 								"micromobility",
 								"vehicle",
-								"61e7fb9fa9aa9d76a66bea8a",
+								":mongodbID",
 								"price"
+							],
+							"variable": [
+								{
+									"key": "mongodbID",
+									"value": null
+								}
 							]
 						}
 					},
@@ -428,7 +511,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility//management/vehicle/bat/50",
+							"raw": "http://localhost:1000/api/v1/micromobility/management/vehicle/bat/:bat",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -438,11 +521,16 @@
 								"api",
 								"v1",
 								"micromobility",
-								"",
 								"management",
 								"vehicle",
 								"bat",
-								"50"
+								":bat"
+							],
+							"variable": [
+								{
+									"key": "bat",
+									"value": null
+								}
 							]
 						}
 					},
@@ -480,6 +568,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Vehicle Path",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/vehicle/nearest/path?xorigin=-8.4229&yorigin=44.5518&xdestination=-6.4229&ydestination=43.5518",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"vehicle",
+								"nearest",
+								"path"
+							],
+							"query": [
+								{
+									"key": "xorigin",
+									"value": "-8.4229"
+								},
+								{
+									"key": "yorigin",
+									"value": "44.5518"
+								},
+								{
+									"key": "xdestination",
+									"value": "-6.4229"
+								},
+								{
+									"key": "ydestination",
+									"value": "43.5518"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -490,7 +620,27 @@
 					"name": "Get All Trips",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWVmMTk1NzViNDQ4YWJlNWFlY2M1MDYiLCJlbWFpbCI6InRkQGlwY2EuY29tZGFzIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTY0MzA1OTYzNzkzNCwiZXhwIjoxNjQzMDU5NzI0MzM0fQ.inODLYCp04w1U_74HIJ_Sw9jzZBT-WIOcf2iI6hwmA9g_KH4_RF7jGTNjAHBp6E9ffETuj2FGdju5ahvqL7mnYKKiNOje-FsIJLzcvuqSwvX9EgDcl4z73NUYjlnOUuxUJxeaXtCgzYpSTbiH_yN2lBXIonRliZZ6hAvELjrQhuhYPV5DRhHfGVy3v_YNz6UZXBwMx9gyQhTHYccjK5ZuYuSwS1LLpBYQIUkG4XDypkLF-Bgk7FHYTRxpZlN9INb0JqL2leOAG170ecc5VvWfwSXyrajxbTlZ2m2Oa6igwcnIZumz-nkWJCXAKEB4XJKMiOG3Vm-pakYLHNSuKUfR37x6HnewrZTkg3HwHALTj2yj2Ol6b3VxdQmhTbYRq6vUUvdCBVSzjAmOhjVrgN7gjnNeRpP5JyynOrw57FrE9NSnOX4vLzPEf-tk80yHZYmUqSKsVqg5yPdsg1MqgmgtASlSO1raNuT1DM-4_xDC9Fb46MqDGdYq0tliFOX1JWXumajxc2NONZbmWzR1EUx0Nq-at65ScZNNWiziQ6xHxhUYY_8RNqrOe22vaQHMYdt48Mn5RoZQAi_QBay1g4ObzwjhgXIAEoAwGdYdpn7vT7eMDeMsSA43NqrIBKql4bLDI61FzzWAFmUxj-1tSm3cqnFhHSyAzRiZUEX8jlB9PI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips"
+							]
+						}
 					},
 					"response": []
 				},
@@ -500,7 +650,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/trips/client/test@email.com",
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/client/:email",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -512,7 +662,13 @@
 								"micromobility",
 								"trips",
 								"client",
-								"test@email.com"
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": null
+								}
 							]
 						}
 					},
@@ -524,7 +680,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/trips/veh/123123213213",
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/veh/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -536,7 +692,13 @@
 								"micromobility",
 								"trips",
 								"veh",
-								"123123213213"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -548,7 +710,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/trips/vehtype/Scooter",
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/vehtype/:type",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -560,7 +722,13 @@
 								"micromobility",
 								"trips",
 								"vehtype",
-								"Scooter"
+								":type"
+							],
+							"variable": [
+								{
+									"key": "type",
+									"value": null
+								}
 							]
 						}
 					},
@@ -572,7 +740,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -583,7 +751,13 @@
 								"v1",
 								"micromobility",
 								"trips",
-								"dadadada"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -594,8 +768,17 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"vehicleType\":\"Scooter\",\r\n   \"vehicleId\":\"dadadaadadad\",\r\n   \"clientEmail\":\"teste@teste.com\",\r\n   \"cost\":200,\r\n   \"tripDetails\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   },\r\n   \"transactions\":{\r\n      \"longitude\":41.5518,\r\n      \"latitude\":-8.4229\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:1000/api/v1/micromobility/trips/dadadada",
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -606,7 +789,13 @@
 								"v1",
 								"micromobility",
 								"trips",
-								"dadadada"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -638,6 +827,128 @@
 								"v1",
 								"micromobility",
 								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/trips/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"trips",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1ads\",\r\n    \"clientEmail\": \"user1ads\",\r\n    \"vehicleType\": \"Scooter\",\r\n    \"vehicleId\": \"61ef1ca1715ab1a25d4523cf\",\r\n    \"TripDetails\": {\r\n        \"origin\": {\r\n            \"longitude\": -8.4229,\r\n            \"latitude\": 43.5518\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/start",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trip Running",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1ads\",\r\n    \"clientEmail\": \"user1ads\",\r\n    \"vehicleType\": \"Scooter\",\r\n    \"vehicleId\": \"61ef1ca1715ab1a25d4523cf\",\r\n    \"TripDetails\": {\r\n        \"origin\": {\r\n            \"longitude\": -8.4229,\r\n            \"latitude\": 43.5518\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/running",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"running"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1ads\",\r\n    \"clientEmail\": \"user1ads\",\r\n    \"vehicleType\": \"Scooter\",\r\n    \"vehicleId\": \"61ef1ca1715ab1a25d4523cf\",\r\n    \"TripDetails\": {\r\n        \"origin\": {\r\n            \"longitude\": -8.4229,\r\n            \"latitude\": 43.5518\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1000/api/v1/micromobility/end",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1000",
+							"path": [
+								"api",
+								"v1",
+								"micromobility",
+								"end"
 							]
 						}
 					},
