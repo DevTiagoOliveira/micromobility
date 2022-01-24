@@ -31,6 +31,35 @@ const getByEmail = (email, res) => {
     })
 }
 
+/* Get Users by id*/
+const getById = (id, res) => {
+  console.log(id);
+  UserModel.getById(id)
+    .then((user) => {
+      console.log(user)
+      res.status(200).send(user)
+    })
+    .catch((err) => {
+      console.log('Error:' + err)
+      res.status(404)
+      res.send('NOT FOUND')
+    })
+}
+
+/* Get User By Username */
+const getByUsername = (username, res) => {
+  UserModel.getByUsername(username)
+    .then((user) => {
+      console.log(user)
+      res.status(200).send(user)
+    })
+    .catch((err) => {
+      console.log('Error:' + err)
+      res.status(404)
+      res.send('NOT FOUND')
+    })
+}
+
 /* Update User Balance */
 const updateBalance = (email, balance, res) => {
   UserModel.getByEmail(email)
@@ -109,7 +138,9 @@ const remove = (req, res) => {
 /* Export */
 module.exports = {
   getAll,
+  getById,
   getByEmail,
+  getByUsername,
   updateBalance,
   create,
   update,

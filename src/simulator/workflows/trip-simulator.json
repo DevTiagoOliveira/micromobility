@@ -114,7 +114,8 @@
         "y": 640,
         "wires": [
             [
-                "26cae36559603927"
+                "26cae36559603927",
+                "03d27fc6735d50dc"
             ]
         ]
     },
@@ -293,7 +294,7 @@
         "type": "function",
         "z": "96dc7e5c67fbd8ab",
         "name": "prepare test payload",
-        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\",\n    \"TripDetails\": {\n        \"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
+        "func": "msg.payload = {\n    \"username\": \"user1ads\",\n    \"clientEmail\": \"user1ads\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"61ef23fbaa2e1719710dcbdd\",\n    \"TripDetails\": {\n        \"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -312,7 +313,7 @@
         "type": "function",
         "z": "96dc7e5c67fbd8ab",
         "name": "prepare test payload",
-        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\"\n    }\nreturn msg;",
+        "func": "msg.payload = {\n    \"username\": \"user1ads\",\n    \"clientEmail\": \"user1ads\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"61ef23fbaa2e1719710dcbdd\",\n    \"TripDetails\": {\n        \"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -331,7 +332,7 @@
         "type": "function",
         "z": "96dc7e5c67fbd8ab",
         "name": "prepare test payload",
-        "func": "msg.payload = {\n    \"clientEmail\": \"test@test.com\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"9999999999\",\n    \"TripDetails\": {\n\t\"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    },\n        \"destination\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
+        "func": "msg.payload = {\n    \"username\": \"user1ads\",\n    \"clientEmail\": \"user1ads\",\n    \"vehicleType\": \"Scooter\",\n    \"vehicleId\": \"61ef23fbaa2e1719710dcbdd\",\n    \"TripDetails\": {\n        \"origin\": {\n            \"longitude\": -8.4229,\n            \"latitude\": 43.5518\n    }\n    }\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
