@@ -271,6 +271,7 @@ Router.post('/start', async function (req, res) {
 
       const createTrip = await axios.post('http://micromobility-service:1000/api/v1/micromobility/trips', newTrip)
 
+      console.log("Trip Started.")
       res.status(200).send("Trip started with success")
 
     } else {
@@ -300,6 +301,8 @@ Router.post('/running', async function (req, res) {
     const getVehicle = await axios.get('http://vehicles-service:1004/api/v1/vehicles/specific/' + req.body.vehicleId); 
     getVehicle.data.charge = getVehicle.data.charge - 10
     const updateVehicle = await axios.put('http://vehicles-service:1004/api/v1/vehicles/' + req.body.vehicleId, getVehicle.data);  
+
+    console.log("Trip Updated.")
 
     res.status(200).send("Trip updated with success")
 
@@ -339,6 +342,8 @@ Router.post('/end', async function (req, res) {
 
     const updatedTripDetails = await axios.patch('http://micromobility-service:1000/api/v1/micromobility/trips/' + req.body.tripId, tripDetails);
     */
+    console.log("Trip Ended.")
+
     res.status(200).send("Trip ended with success")
 
   } catch(e){
