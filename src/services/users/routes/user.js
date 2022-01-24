@@ -41,6 +41,28 @@ Router.get('/:email', function (req, res) {
 })
 
 /**
+ * GET /api/v1/user/userId/:id
+ * @tags User
+ * @summary Get user by user mongodb id.
+ * @returns 200 - Returned user successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/userId/:id', function (req, res) {
+  UserController.getById(req.params.id, res)
+})
+
+/**
+ * GET /api/v1/user/login/:username
+ * @tags User
+ * @summary Retrieve user by username.
+ * @returns 200 - Returned user successfully.
+ * @returns 404 - An internal service error has occurred.
+ */
+Router.get('/login/:username', function (req, res) {
+  UserController.getByUsername(req.params.username, res)
+})
+
+/**
  * PATCH /api/v1/user/balance/:email
  * @tags User
  * @summary Update user balance.

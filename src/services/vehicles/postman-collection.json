@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "102b555e-9dbd-4010-bd4b-afd64f6e688c",
+		"_postman_id": "a7345a40-299a-41a2-93ca-69f5794a73b5",
 		"name": "Vehicles Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -33,7 +33,7 @@
 			]
 		},
 		{
-			"name": "Prices",
+			"name": "Vehicles",
 			"item": [
 				{
 					"name": "Create",
@@ -71,7 +71,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1004/api/v1/vehicles/61b0dab8c347b28d9686c671",
+							"raw": "http://localhost:1004/api/v1/vehicles/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -81,7 +81,13 @@
 								"api",
 								"v1",
 								"vehicles",
-								"61b0dab8c347b28d9686c671"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -114,7 +120,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1004/api/v1/vehicles/61b0dab8c347b28d9686c671/price",
+							"raw": "http://localhost:1004/api/v1/vehicles/:id/price",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,8 +130,14 @@
 								"api",
 								"v1",
 								"vehicles",
-								"61b0dab8c347b28d9686c671",
+								":id",
 								"price"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -146,7 +158,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1004/api/v1/vehicles/61b0dab8c347b28d9686c671",
+							"raw": "http://localhost:1004/api/v1/vehicles/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -156,7 +168,13 @@
 								"api",
 								"v1",
 								"vehicles",
-								"61b0dab8c347b28d9686c671"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -168,7 +186,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1004/api/v1/vehicles/61b0dab8c347b28d9686c671",
+							"raw": "http://localhost:1004/api/v1/vehicles/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -178,7 +196,64 @@
 								"api",
 								"v1",
 								"vehicles",
-								"61b0dab8c347b28d9686c671"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Active Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1004/api/v1/vehicles/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1004",
+							"path": [
+								"api",
+								"v1",
+								"vehicles",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get vehicles with charge inferior to X",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1004/api/v1/vehicles/bat/:bat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1004",
+							"path": [
+								"api",
+								"v1",
+								"vehicles",
+								"bat",
+								":bat"
+							],
+							"variable": [
+								{
+									"key": "bat",
+									"value": null
+								}
 							]
 						}
 					},

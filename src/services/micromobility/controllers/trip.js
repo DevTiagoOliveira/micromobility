@@ -115,6 +115,7 @@ const remove = (req, res) => {
 /* Export */
 module.exports = {
     getAll,
+    getById,
     getAllByEmail,
     getAllByVehId,
     getAllByVehType,
